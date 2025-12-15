@@ -1,0 +1,59 @@
+import package_alu::*;
+import package_gpr_destination_selector::*;
+import package_ir_source_selector::*;
+import package_lbus_source_selector::*;
+import package_machine_data::*;
+import package_rbus_source_selector::*;
+import package_shifter::*;
+
+interface control_interface {
+    var lbus_source_selector    : LBUS_SOURCE_SELECTOR       ;
+    var rbus_source_selector    : RBUS_SOURCE_SELECTOR       ;
+    var alu_operation           : ALU_OPERATION              ;
+    var shifter_operation       : SHIFTER_OPERATION          ;
+    var gpr_destination_selector: GPR_DESTINATION_SELECTOR   ;
+    var ir_source_selector      : IR_SOURCE_SELECTOR         ;
+    var set_mar                 : logic                      ;
+    var set_fsr                 : logic                      ;
+    var set_pc                  : logic                      ;
+    var literal                 : MICRO1_MACHINE_WORD        ;
+    var flags                   : logic                   <4>;
+    var cin                     : logic                      ;
+    var inbus_valid             : logic                      ;
+    var ir                      : MICRO1_MACHINE_WORD        ;
+    var alu_cout                : logic                      ;
+    var shifter_cout            : logic                      ;
+    var lbus_msb                : logic                      ;
+    var rbus_msb                : logic                      ;
+    var rbus_lower              : logic                   <8>;
+    var abus                    : MICRO1_MACHINE_WORD        ;
+    var sbus_msb                : logic                      ;
+
+    modport controler {
+        lbus_source_selector    : output,
+        rbus_source_selector    : output,
+        alu_operation           : output,
+        shifter_operation       : output,
+        gpr_destination_selector: output,
+        ir_source_selector      : output,
+        set_mar                 : output,
+        set_fsr                 : output,
+        set_pc                  : output,
+        literal                 : output,
+        flags                   : output,
+        cin                     : output,
+        inbus_valid             : output,
+        ir                      : input ,
+        alu_cout                : input ,
+        shifter_cout            : input ,
+        lbus_msb                : input ,
+        rbus_msb                : input ,
+        rbus_lower              : input ,
+        abus                    : input ,
+        sbus_msb                : input ,
+    }
+
+    modport datapath {
+        ..converse(controler)
+    }
+}

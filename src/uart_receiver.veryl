@@ -1,0 +1,46 @@
+module uart_receiver #(
+    param CLOCK_FREQUENCY: logic<32> = 32'd100_000_000,
+    param BAUD_RATE      : logic<32> = 32'd115200     ,
+    param WORD_WIDTH     : logic<32> = 32'd8          ,
+) (
+    clk  : input  clock            ,
+    rst  : input  reset            ,
+    rxd  : input  logic            ,
+    dout : output logic<WORD_WIDTH>,
+    empty: output logic            ,
+    re   : input  logic            ,
+) {
+    // registers and wires
+    var data        : logic<WORD_WIDTH>;
+    var full        : logic            ;
+    var we          : logic            ;
+    var reset_for_sv: logic            ;
+
+    // logic
+    assign reset_for_sv = rst as 1;
+
+    // modules
+    inst rx: uart_receiver_controler #(
+        CLOCK_FREQUENCY: CLOCK_FREQUENCY,
+        BAUD_RATE      : BAUD_RATE      ,
+        WORD_WIDTH     : WORD_WIDTH     ,
+    ) (
+        clk : clk ,
+        rst : rst ,
+        din : rxd ,
+        dout: data,
+        full: full,
+        we  : we  ,
+    );
+
+    inst fifo: $sv::fifo_generator_0 (
+        clk  : clk         ,
+        srst : reset_for_sv,
+        din  : data        ,
+        full : full        ,
+        wr_en: we          ,
+        dout : dout        ,
+        empty: empty       ,
+        rd_en: re          ,
+    );
+}

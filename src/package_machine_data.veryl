@@ -1,0 +1,4 @@
+package package_machine_data {
+    type MICRO1_MACHINE_WORD    = logic<16>;
+    type MICRO1_MACHINE_ADDRESS = logic<16>;
+}

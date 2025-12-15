@@ -1,0 +1,507 @@
+import package_alu::*;
+import package_control_data::*;
+import package_gpr_destination_selector::*;
+import package_ir_source_selector::*;
+import package_lbus_source_selector::*;
+import package_rbus_source_selector::*;
+import package_shifter::*;
+
+module controler #(
+    param ENTRY_POINT: logic<12> = 0,
+) (
+    clk     : input   clock                       ,
+    rst     : input   reset                       ,
+    c_inf   : modport control_interface::controler,
+    cm_addr : output  MICRO1_CONTROL_ADDRESS      ,
+    cm_din  : input   MICRO1_CONTROL_WORD         ,
+    mm_we   : output  logic                       ,
+    if_empty: input   logic                       ,
+    if_re   : output  logic                       ,
+    of_full : input   logic                       ,
+    of_we   : output  logic                       ,
+    led_hlt : output  logic                       ,
+    led_ov  : output  logic                       ,
+) {
+    // type definitions
+    enum PHASE {
+        INIT = 3'h0,
+        T1 = 3'h1,
+        T2 = 3'h2,
+        T3 = 3'h3,
+        T4 = 3'h4,
+        T5 = 3'h5,
+        HLT = 3'h6,
+    }
+    enum sb_t {
+        R0 = 4'h0,
+        R1 = 4'h1,
+        R2 = 4'h2,
+        R3 = 4'h3,
+        R4 = 4'h4,
+        R5 = 4'h5,
+        R6 = 4'h6,
+        R7 = 4'h7,
+        RA = 4'h8,
+        RAP = 4'h9,
+        RB = 4'hA,
+        RBP = 4'hB,
+        PC = 4'hC,
+        NONE = 4'hF,
+    }
+    enum mm_t {
+        RM = 2'h0,
+        WM = 2'h1,
+        NMM = 2'h3,
+    }
+    enum sq_t {
+        B = 4'h0,
+        BP = 4'h1,
+        RTN = 4'h2,
+        BT = 4'h3,
+        BF = 4'h4,
+        IOP = 4'h5,
+        IRA = 4'h6,
+        IAB = 4'h7,
+        EI = 4'h8,
+        NSQ = 4'hF,
+    }
+    enum ts_t {
+        ZER = 3'h0,
+        NEG = 3'h1,
+        CRY = 3'h2,
+        OV = 3'h3,
+        T = 3'h4,
+        CZ = 3'h5,
+        NTS = 3'h7,
+    }
+    enum ex_t {
+        CM1 = 4'h0,
+        FLS = 4'h1,
+        ASC = 4'h2,
+        AS1 = 4'h3,
+        LIR = 4'h4,
+        LIO = 4'h5,
+        SC = 4'h6,
+        EIO = 4'h7,
+        ST = 4'h8,
+        RT = 4'h9,
+        INA = 4'hA,
+        INB = 4'hB,
+        DCB = 4'hC,
+        HLT = 4'hD,
+        OV = 4'hE,
+        NEX = 4'hF,
+    }
+
+    // constant value
+    const CONSTANT_ZERO_40: logic<40> = 40'h0;
+    const FLAG_INDEX_ZER  : logic<3>  = 3'h4;
+    const FLAG_INDEX_NEG  : logic<3>  = 3'h3;
+    const FLAG_INDEX_CRY  : logic<3>  = 3'h2;
+    const FLAG_INDEX_OV   : logic<3>  = 3'h1;
+    const FLAG_INDEX_T    : logic<3>  = 3'h0;
+
+    // registers and wires
+    var phase               : PHASE                    ;
+    var cmar                : MICRO1_CONTROL_ADDRESS   ;
+    var cmdr                : MICRO1_CONTROL_WORD      ;
+    var cmar_stack          : MICRO1_CONTROL_WORD   <8>;
+    var cmar_stack_pointer  : logic                 <3>;
+    var mm_write_reservation: logic                    ;
+    var c                   : logic                 <8>;
+    var flags               : logic                 <6>;
+    var flag_zer            : logic                    ;
+    var flag_neg            : logic                    ;
+    var flag_cry            : logic                    ;
+    var flag_ov             : logic                    ;
+    var flag_cz             : logic                    ;
+    var flag_t              : logic                    ;
+    var test                : logic                    ;
+    var lb                  : LBUS_SOURCE_SELECTOR     ;
+    var rb                  : RBUS_SOURCE_SELECTOR     ;
+    var al                  : ALU_OPERATION            ;
+    var sh                  : SHIFTER_OPERATION        ;
+    var sb                  : sb_t                     ;
+    var mm                  : mm_t                     ;
+    var sq                  : sq_t                     ;
+    var ts                  : logic                 <3>;
+    var ex                  : ex_t                     ;
+    var lt                  : logic                 <9>;
+
+    // logics
+    assign c_inf.lbus_source_selector = lb;
+    assign c_inf.rbus_source_selector = rb;
+
+    always_comb {
+        case al {
+            ALU_OPERATION::IAL: case c_inf.ir[14:12] {
+                3'b000 : c_inf.alu_operation = ALU_OPERATION::ADD;
+                3'b001 : c_inf.alu_operation = ALU_OPERATION::SUB;
+                3'b010 : c_inf.alu_operation = ALU_OPERATION::AND;
+                3'b011 : c_inf.alu_operation = ALU_OPERATION::OR;
+                3'b100 : c_inf.alu_operation = ALU_OPERATION::XOR;
+                default: c_inf.alu_operation = ALU_OPERATION::NOP;
+            }
+            default: c_inf.alu_operation = al;
+        }
+    }
+
+    assign c_inf.shifter_operation = sh;
+
+    always_comb {
+        case phase {
+            PHASE::T5: case sb {
+                sb_t::R0 : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::GPR0;
+                sb_t::R1 : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::GPR1;
+                sb_t::R2 : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::GPR2;
+                sb_t::R3 : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::GPR3;
+                sb_t::R4 : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::GPR4;
+                sb_t::R5 : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::GPR5;
+                sb_t::R6 : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::GPR6;
+                sb_t::R7 : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::GPR7;
+                sb_t::RA : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::RA;
+                sb_t::RAP: c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::RAP;
+                sb_t::RB : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::RB;
+                sb_t::RBP: c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::RBP;
+                default  : c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::NONE;
+            }
+            default: c_inf.gpr_destination_selector = GPR_DESTINATION_SELECTOR::NONE;
+        }
+    }
+
+    always_comb {
+        case phase {
+            PHASE::T3: case ex {
+                ex_t::LIR: c_inf.ir_source_selector = IR_SOURCE_SELECTOR::SET_IR;
+                default  : c_inf.ir_source_selector = IR_SOURCE_SELECTOR::NO_OPERATION;
+            }
+            PHASE::T5: case ex {
+                ex_t::INA: c_inf.ir_source_selector = IR_SOURCE_SELECTOR::INCREASE_RA;
+                ex_t::INB: c_inf.ir_source_selector = IR_SOURCE_SELECTOR::INCREASE_RB;
+                ex_t::DCB: c_inf.ir_source_selector = IR_SOURCE_SELECTOR::DECREASE_RB;
+                default  : c_inf.ir_source_selector = IR_SOURCE_SELECTOR::NO_OPERATION;
+            }
+            default: c_inf.ir_source_selector = IR_SOURCE_SELECTOR::NO_OPERATION;
+        }
+    }
+
+    always_comb {
+        case phase {
+            PHASE::T2: case mm {
+                mm_t::RM: c_inf.set_mar = 1'b1;
+                mm_t::WM: c_inf.set_mar = 1'b1;
+                default : c_inf.set_mar = 1'b0;
+            }
+            default: c_inf.set_mar = 1'b0;
+        }
+    }
+
+    always_comb {
+        case phase {
+            PHASE::T5: case ex {
+                ex_t::FLS: c_inf.set_fsr = 1'b1;
+                default  : c_inf.set_fsr = 1'b0;
+            }
+            default: c_inf.set_fsr = 1'b0;
+        }
+    }
+
+    always_comb {
+        case phase {
+            PHASE::T5: case sb {
+                sb_t::PC: c_inf.set_pc = 1'b1;
+                default : c_inf.set_pc = 1'b0;
+            }
+            default: c_inf.set_pc = 1'b0;
+        }
+    }
+
+    assign c_inf.literal = {ts, ex, lt};
+    assign c_inf.flags   = {flag_zer, flag_neg, flag_cry, flag_ov};
+
+    always_comb {
+        case ex {
+            ex_t::ASC: c_inf.cin = flags[FLAG_INDEX_CRY];
+            ex_t::AS1: c_inf.cin = 1'h1;
+            default  : c_inf.cin = 1'h0;
+        }
+    }
+
+    always_ff {
+        if_reset {
+            c_inf.inbus_valid = 1'b0;
+        } else {
+            case phase {
+                PHASE::T2: case ex {
+                    ex_t::EIO: {
+                        if (c_inf.ir == 16'hEC00) {
+                            c_inf.inbus_valid = ~if_empty;
+                        } else {
+                            c_inf.inbus_valid = c_inf.inbus_valid;
+                        }
+                    }
+                    default: c_inf.inbus_valid = c_inf.inbus_valid;
+                }
+                default: c_inf.inbus_valid = c_inf.inbus_valid;
+            }
+        }
+    }
+
+    assign cm_addr = cmar;
+
+    always_comb {
+        case phase {
+            PHASE::T2: mm_we = mm_write_reservation;
+            default  : mm_we = 1'h0;
+        }
+    }
+
+    always_comb {
+        case phase {
+            PHASE::T2: case ex {
+                ex_t::EIO: if_re = (c_inf.ir == 16'hEC00) && (~if_empty);
+                default  : if_re = 1'b0;
+            }
+            default: if_re = 1'b0;
+        }
+    }
+
+    always_comb {
+        case phase {
+            PHASE::T3: case ex {
+                ex_t::LIO: of_we = (c_inf.ir == 16'hED01) && (~of_full);
+                default  : of_we = 1'b0;
+            }
+            default: of_we = 1'b0;
+        }
+    }
+
+    always_ff {
+        if_reset {
+            led_hlt = 1'h0;
+        } else {
+            case phase {
+                PHASE::T5: case ex {
+                    ex_t::HLT: led_hlt = 1'h1;
+                    default  : led_hlt = 1'h0;
+                }
+                default: led_hlt = led_hlt;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            led_ov = 1'h0;
+        } else {
+            case phase {
+                PHASE::T5: case ex {
+                    ex_t::OV: led_ov = 1'h1;
+                    default : led_ov = 1'h0;
+                }
+                default: led_ov = led_ov;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            phase = PHASE::INIT;
+        } else {
+            case phase {
+                PHASE::INIT: phase = PHASE::T1;
+                PHASE::T1  : phase = PHASE::T2;
+                PHASE::T2  : phase = PHASE::T3;
+                PHASE::T3  : phase = PHASE::T4;
+                PHASE::T4  : phase = PHASE::T5;
+                PHASE::T5  : case ex {
+                    ex_t::HLT: phase = PHASE::HLT;
+                    ex_t::OV : phase = PHASE::HLT;
+                    default  : phase = PHASE::T1;
+                }
+                default: phase = phase;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            cmar = ENTRY_POINT;
+        } else {
+            case phase {
+                PHASE::T2: case sq {
+                    sq_t::B  : cmar = {ts, lt};
+                    sq_t::BP : cmar = {ts, lt};
+                    sq_t::RTN: cmar = cmar_stack[cmar_stack_pointer - 3'h1];
+                    sq_t::BT : cmar = if test ? {cmar[11:9], lt} : (cmar + 12'h1);
+                    sq_t::BF : cmar = if test ? (cmar + 12'h1) : {cmar[11:9], lt};
+                    sq_t::IOP: cmar = {lt[7:0], c_inf.ir[15:12]};
+                    sq_t::IRA: cmar = {ts[0], lt[8:2], c_inf.ir[11:10], lt[1:0]};
+                    sq_t::IAB: cmar = {ts[0], lt[8:4], c_inf.ir[11:8], lt[1:0]};
+                    sq_t::EI : cmar = if test ? CONSTANT_ZERO_40[11:0] : {cmar[11:9], lt};
+                    default  : cmar = cmar + 12'h1;
+                }
+                default: cmar = cmar;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            cmdr = {
+                LBUS_SOURCE_SELECTOR::NLB,
+                RBUS_SOURCE_SELECTOR::NRB,
+                ALU_OPERATION::NOP,
+                SHIFTER_OPERATION::NOP,
+                sb_t::NONE,
+                mm_t::NMM,
+                sq_t::NSQ,
+                ts_t::NTS,
+                ex_t::NEX,
+                9'h0
+            };
+        } else {
+            case phase {
+                PHASE::INIT: cmdr = cm_din;
+                PHASE::T5  : cmdr = cm_din;
+                default    : cmdr = cmdr;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            for i: u32 in 0..8 {
+                cmar_stack[i] = CONSTANT_ZERO_40[11:0];
+            }
+        } else {
+            case phase {
+                PHASE::T2: case sq {
+                    sq_t::BP: cmar_stack[cmar_stack_pointer] = cmar;
+                    default : cmar_stack[cmar_stack_pointer] = cmar_stack[cmar_stack_pointer];
+                }
+                default: cmar_stack[cmar_stack_pointer] = cmar_stack[cmar_stack_pointer];
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            cmar_stack_pointer = 3'h0;
+        } else {
+            case phase {
+                PHASE::T2: case sq {
+                    sq_t::BP : cmar_stack_pointer = cmar_stack_pointer + 3'h1;
+                    sq_t::RTN: cmar_stack_pointer = cmar_stack_pointer - 3'h1;
+                    default  : cmar_stack_pointer = cmar_stack_pointer;
+                }
+                default: cmar_stack_pointer = cmar_stack_pointer;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            mm_write_reservation = 1'h0;
+        } else {
+            case phase {
+                PHASE::T2: mm_write_reservation = mm == mm_t::WM;
+                default  : mm_write_reservation = mm_write_reservation;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            c = CONSTANT_ZERO_40[7:0];
+        } else {
+            case phase {
+                PHASE::T5: case ex {
+                    ex_t::CM1: c = c - 8'h1;
+                    ex_t::SC : c = c_inf.rbus_lower;
+                    default  : c = c;
+                }
+                default: c = c;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            flags = 6'h0;
+        } else {
+            case phase {
+                PHASE::T5: flags = {flag_zer, flag_neg, flag_cry, flag_ov, flag_t};
+                default  : flags = flags;
+            }
+        }
+    }
+
+    always_comb {
+        case al {
+            ALU_OPERATION::ADD: flag_zer = c_inf.abus == CONSTANT_ZERO_40[15:0];
+            ALU_OPERATION::SUB: flag_zer = c_inf.abus == CONSTANT_ZERO_40[15:0];
+            ALU_OPERATION::AND: flag_zer = c_inf.abus == CONSTANT_ZERO_40[15:0];
+            ALU_OPERATION::OR : flag_zer = c_inf.abus == CONSTANT_ZERO_40[15:0];
+            default           : flag_zer = 1'h0;
+        }
+    }
+
+    always_comb {
+        case al {
+            ALU_OPERATION::ADD: flag_neg = c_inf.abus[15];
+            ALU_OPERATION::SUB: flag_neg = c_inf.abus[15];
+            default           : flag_neg = 1'h0;
+        }
+    }
+
+    always_comb {
+        case c_inf.shifter_operation {
+            SHIFTER_OPERATION::LEFT_LOGICALLY      : flag_cry = c_inf.shifter_cout;
+            SHIFTER_OPERATION::RIGHT_LOGICALLY     : flag_cry = c_inf.shifter_cout;
+            SHIFTER_OPERATION::LEFT_ARITHMETICALLY : flag_cry = c_inf.shifter_cout;
+            SHIFTER_OPERATION::RIGHT_ARITHMETICALLY: flag_cry = c_inf.shifter_cout;
+            SHIFTER_OPERATION::EXTENSION           : flag_cry = c_inf.shifter_cout;
+            default                                : case al {
+                ALU_OPERATION::ADD: flag_cry = c_inf.alu_cout;
+                ALU_OPERATION::SUB: flag_cry = c_inf.alu_cout;
+                default           : flag_cry = c_inf.alu_cout;
+            }
+        }
+    }
+
+    always_comb {
+        case c_inf.shifter_operation {
+            SHIFTER_OPERATION::LEFT_ARITHMETICALLY: flag_ov = c_inf.abus[15] ^ c_inf.sbus_msb;
+            default                               : case al {
+                ALU_OPERATION::ADD: flag_ov = (c_inf.lbus_msb == c_inf.rbus_msb) ^ c_inf.abus[15];
+                ALU_OPERATION::SUB: flag_ov = (c_inf.lbus_msb | (~c_inf.rbus_msb) | c_inf.abus[15]) | ((~c_inf.lbus_msb) | c_inf.rbus_msb | (~c_inf.abus[15]));
+                default           : flag_ov = 1'h0;
+            }
+        }
+    }
+
+    assign flag_cz = c == 8'h0;
+
+    always_comb {
+        case ex {
+            ex_t::ST: flag_t = 1'h1;
+            ex_t::RT: flag_t = 1'h0;
+            default : flag_t = 1'h0;
+        }
+    }
+
+    always_comb {
+        case ts {
+            ts_t::ZER: test = flags[FLAG_INDEX_ZER];
+            ts_t::NEG: test = flags[FLAG_INDEX_NEG];
+            ts_t::CRY: test = flags[FLAG_INDEX_CRY];
+            ts_t::OV : test = flags[FLAG_INDEX_OV];
+            ts_t::T  : test = flags[FLAG_INDEX_T];
+            ts_t::CZ : test = flag_cz;
+            default  : test = 1'h1;
+        }
+    }
+
+    assign {lb, rb, al, sh, sb, mm, sq, ts, ex, lt} = cmdr;
+}

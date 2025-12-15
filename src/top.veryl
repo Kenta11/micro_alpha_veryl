@@ -1,0 +1,84 @@
+import package_machine_data::*;
+import package_control_data::*;
+
+module top (
+    clk_in : input  clock,
+    rst_in : input  reset,
+    rxd    : input  logic,
+    txd    : output logic,
+    led_hlt: output logic,
+    led_ov : output logic,
+) {
+    // constant
+    const CLOCK_FREQUENCY: logic<32> = 32'd100_000_000;
+
+    // registers and wires
+    var cm_addr : MICRO1_CONTROL_ADDRESS   ;
+    var cm_data : MICRO1_CONTROL_WORD      ;
+    var mm_we   : logic                    ;
+    var mm_addr : MICRO1_MACHINE_ADDRESS   ;
+    var mm_din  : MICRO1_MACHINE_WORD      ;
+    var mm_dout : MICRO1_MACHINE_WORD      ;
+    var if_dout : logic                 <8>;
+    var if_empty: logic                    ;
+    var if_re   : logic                    ;
+    var of_din  : logic                 <8>;
+    var of_full : logic                    ;
+    var of_we   : logic                    ;
+
+    // modules
+    inst cpu: micro_alpha (
+        clk     : clk_in  ,
+        rst     : rst_in  ,
+        cm_addr : cm_addr ,
+        cm_data : cm_data ,
+        mm_addr : mm_addr ,
+        mm_we   : mm_we   ,
+        mm_din  : mm_din  ,
+        mm_dout : mm_dout ,
+        if_dout : if_dout ,
+        if_empty: if_empty,
+        if_re   : if_re   ,
+        of_din  : of_din  ,
+        of_full : of_full ,
+        of_we   : of_we   ,
+        led_hlt : led_hlt ,
+        led_ov  : led_ov  ,
+    );
+
+    inst cm: $sv::control_memory (
+        clka : clk_in ,
+        addra: cm_addr,
+        douta: cm_data,
+    );
+
+    inst mm: $sv::main_memory (
+        clka : clk_in ,
+        addra: mm_addr,
+        dina : mm_dout,
+        douta: mm_din ,
+        wea  : mm_we  ,
+    );
+
+    inst rx: uart_receiver #(
+        CLOCK_FREQUENCY: CLOCK_FREQUENCY,
+    ) (
+        clk  : clk_in  ,
+        rst  : rst_in  ,
+        rxd  : rxd     ,
+        dout : if_dout ,
+        empty: if_empty,
+        re   : if_re   ,
+    );
+
+    inst tx: uart_transmitter #(
+        CLOCK_FREQUENCY: CLOCK_FREQUENCY,
+    ) (
+        clk : clk_in ,
+        rst : rst_in ,
+        din : of_din ,
+        full: of_full,
+        we  : of_we  ,
+        txd : txd    ,
+    );
+}

@@ -1,0 +1,17 @@
+package package_gpr_destination_selector {
+    enum GPR_DESTINATION_SELECTOR {
+        GPR0 = 4'b0000,
+        GPR1 = 4'b0001,
+        GPR2 = 4'b0010,
+        GPR3 = 4'b0011,
+        GPR4 = 4'b0100,
+        GPR5 = 4'b0101,
+        GPR6 = 4'b0110,
+        GPR7 = 4'b0111,
+        RA = 4'b1000,
+        RAP = 4'b1001,
+        RB = 4'b1010,
+        RBP = 4'b1011,
+        NONE = 4'b1111,
+    }
+}

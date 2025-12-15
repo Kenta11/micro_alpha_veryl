@@ -1,0 +1,204 @@
+import package_alu::*;
+import package_machine_data::*;
+import package_gpr_destination_selector::*;
+import package_ir_source_selector::*;
+import package_lbus_source_selector::*;
+import package_rbus_source_selector::*;
+import package_shifter::*;
+
+module datapath #(
+    param ENTRY_POINT: logic<16> = 16'h0140,
+) (
+    clk    : input   clock                         ,
+    rst    : input   reset                         ,
+    c_inf  : modport control_interface::datapath   ,
+    mm_addr: output  MICRO1_MACHINE_ADDRESS        ,
+    mm_din : input   MICRO1_MACHINE_WORD           ,
+    mm_dout: output  MICRO1_MACHINE_WORD           ,
+    if_dout: input   logic                      <8>,
+    of_din : output  logic                      <8>,
+) {
+    // constant value
+    const CONSTANT_ZERO_16: logic<16> = 16'h0;
+
+    // registers and wires
+    var gpr  : MICRO1_MACHINE_WORD     [8];
+    var pc   : MICRO1_MACHINE_WORD        ;
+    var fsr  : logic              <4>     ;
+    var mar  : MICRO1_MACHINE_WORD        ;
+    var op   : logic              <4>     ;
+    var ra   : logic              <2>     ;
+    var rb   : logic              <2>     ;
+    var nd   : logic              <8>     ;
+    var rap  : logic              <2>     ;
+    var rbp  : logic              <2>     ;
+    var rbm  : logic              <2>     ;
+    var lbus : logic              <16>    ;
+    var rbus : logic              <16>    ;
+    var sbus : logic              <16>    ;
+    var inbus: MICRO1_MACHINE_WORD        ;
+
+    // submodules
+    inst mux_for_lbus: mux #(
+        WIDTH : 16,
+        NUMBER: 16,
+    ) (
+        din: {
+            gpr[0],
+            gpr[1],
+            gpr[2],
+            gpr[3],
+            gpr[4],
+            gpr[5],
+            gpr[6],
+            gpr[7],
+            gpr[rb],
+            gpr[rbp],
+            pc,
+            inbus,
+            mm_din,
+            c_inf.ir,
+            {
+                CONSTANT_ZERO_16[11:0], fsr
+            },
+            CONSTANT_ZERO_16
+        },
+        selector: c_inf.lbus_source_selector,
+        dout    : lbus                      ,
+    );
+
+    inst mux_for_rbus: mux #(
+        WIDTH : 16,
+        NUMBER: 16,
+    ) (
+        din: {
+            gpr[0],
+            gpr[1],
+            gpr[2],
+            gpr[3],
+            gpr[4],
+            gpr[5],
+            gpr[6],
+            gpr[7],
+            gpr[ra],
+            gpr[rap],
+            {
+                7'h0, c_inf.literal[8:0]
+            },
+            c_inf.literal,
+            CONSTANT_ZERO_16,
+            CONSTANT_ZERO_16,
+            CONSTANT_ZERO_16,
+            CONSTANT_ZERO_16
+        },
+        selector: c_inf.rbus_source_selector,
+        dout    : rbus                      ,
+    );
+
+    inst alu0: alu (
+        operation: c_inf.alu_operation,
+        left     : lbus               ,
+        right    : rbus               ,
+        cin      : c_inf.cin          ,
+        result   : c_inf.abus         ,
+        cout     : c_inf.alu_cout     ,
+    );
+
+    inst shifter0: shifter (
+        operation: c_inf.shifter_operation,
+        r#in     : c_inf.abus             ,
+        cin      : c_inf.cin              ,
+        out      : sbus                   ,
+        cout     : c_inf.shifter_cout     ,
+    );
+
+    // logics
+    assign c_inf.lbus_msb   = lbus[15];
+    assign c_inf.rbus_msb   = rbus[15];
+    assign c_inf.rbus_lower = rbus[7:0];
+    assign c_inf.sbus_msb   = sbus[15];
+
+    always_ff {
+        if_reset {
+            for i: u32 in 0..8 {
+                gpr[i] = CONSTANT_ZERO_16;
+            }
+        } else {
+            case c_inf.gpr_destination_selector {
+                GPR_DESTINATION_SELECTOR::GPR0: gpr[0]   = sbus;
+                GPR_DESTINATION_SELECTOR::GPR1: gpr[1]   = sbus;
+                GPR_DESTINATION_SELECTOR::GPR2: gpr[2]   = sbus;
+                GPR_DESTINATION_SELECTOR::GPR3: gpr[3]   = sbus;
+                GPR_DESTINATION_SELECTOR::GPR4: gpr[4]   = sbus;
+                GPR_DESTINATION_SELECTOR::GPR5: gpr[5]   = sbus;
+                GPR_DESTINATION_SELECTOR::GPR6: gpr[6]   = sbus;
+                GPR_DESTINATION_SELECTOR::GPR7: gpr[7]   = sbus;
+                GPR_DESTINATION_SELECTOR::RA  : gpr[ra]  = sbus;
+                GPR_DESTINATION_SELECTOR::RAP : gpr[rap] = sbus;
+                GPR_DESTINATION_SELECTOR::RB  : gpr[rb]  = sbus;
+                GPR_DESTINATION_SELECTOR::RBP : gpr[rbp] = sbus;
+                default                       : gpr[0]   = gpr[0];
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            pc = CONSTANT_ZERO_16;
+        } else if (c_inf.set_pc) {
+            pc = sbus;
+        } else {
+            pc = pc;
+        }
+    }
+
+    always_ff {
+        if_reset {
+            fsr = CONSTANT_ZERO_16[3:0];
+        } else if (c_inf.set_fsr) {
+            fsr = c_inf.flags;
+        } else {
+            fsr = fsr;
+        }
+    }
+
+    always_ff {
+        if_reset {
+            mar = ENTRY_POINT;
+        } else if (c_inf.set_mar) {
+            mar = lbus;
+        } else {
+            mar = mar;
+        }
+    }
+
+    always_ff {
+        if_reset {
+            c_inf.ir = CONSTANT_ZERO_16;
+        } else {
+            case c_inf.ir_source_selector {
+                IR_SOURCE_SELECTOR::SET_IR     : c_inf.ir = lbus;
+                IR_SOURCE_SELECTOR::INCREASE_RA: c_inf.ir = {op, rap, rb, nd};
+                IR_SOURCE_SELECTOR::INCREASE_RB: c_inf.ir = {op, ra, rbp, nd};
+                IR_SOURCE_SELECTOR::DECREASE_RB: c_inf.ir = {op, ra, rbm, nd};
+                default                        : c_inf.ir = c_inf.ir;
+            }
+        }
+    }
+
+    assign mm_addr = mar;
+    assign mm_dout = lbus;
+    assign of_din  = lbus[7:0];
+    assign {op, ra, rb, nd} = c_inf.ir;
+    assign rap = c_inf.ir[11:10] + 2'b1;
+    assign rbp = c_inf.ir[9:8] + 2'b1;
+    assign rbm = c_inf.ir[9:8] - 2'b1;
+
+    always_comb {
+        if (c_inf.inbus_valid) {
+            inbus = {CONSTANT_ZERO_16[7:0], if_dout};
+        } else {
+            inbus = CONSTANT_ZERO_16;
+        }
+    }
+}

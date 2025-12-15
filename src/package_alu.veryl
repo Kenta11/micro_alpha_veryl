@@ -1,0 +1,11 @@
+package package_alu {
+    enum ALU_OPERATION {
+        ADD = 3'b000,
+        SUB = 3'b001,
+        AND = 3'b010,
+        OR = 3'b011,
+        XOR = 3'b100,
+        IAL = 3'b101,
+        NOP = 3'b111,
+    }
+}

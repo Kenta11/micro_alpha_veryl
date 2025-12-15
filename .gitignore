@@ -1,0 +1,12 @@
+# Build output
+.build/
+/target
+/dependencies
+*.f
+*.jou
+*.log
+vivado/
+
+# Verilator
+obj_dir/
+vunit_out/

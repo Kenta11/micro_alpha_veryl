@@ -1,0 +1,53 @@
+import package_machine_data::*;
+import package_control_data::*;
+
+module micro_alpha (
+    clk     : input  clock                    ,
+    rst     : input  reset                    ,
+    cm_addr : output MICRO1_CONTROL_ADDRESS   ,
+    cm_data : input  MICRO1_CONTROL_WORD      ,
+    mm_addr : output MICRO1_MACHINE_ADDRESS   ,
+    mm_we   : output logic                    ,
+    mm_din  : input  MICRO1_MACHINE_WORD      ,
+    mm_dout : output MICRO1_MACHINE_WORD      ,
+    if_dout : input  logic                 <8>,
+    if_empty: input  logic                    ,
+    if_re   : output logic                    ,
+    of_din  : output logic                 <8>,
+    of_full : input  logic                    ,
+    of_we   : output logic                    ,
+    led_hlt : output logic                    ,
+    led_ov  : output logic                    ,
+) {
+    // registers and wires
+    inst c_inf: control_interface;
+
+    // modules
+    inst controler0: controler #(
+        ENTRY_POINT: 12'h101,
+    ) (
+        clk     : clk     ,
+        rst     : rst     ,
+        c_inf   : c_inf   ,
+        cm_addr : cm_addr ,
+        cm_din  : cm_data ,
+        mm_we   : mm_we   ,
+        if_empty: if_empty,
+        if_re   : if_re   ,
+        of_full : of_full ,
+        of_we   : of_we   ,
+        led_hlt : led_hlt ,
+        led_ov  : led_ov  ,
+    );
+
+    inst datapath0: datapath (
+        clk    : clk    ,
+        rst    : rst    ,
+        c_inf  : c_inf  ,
+        mm_addr: mm_addr,
+        mm_din : mm_din ,
+        mm_dout: mm_dout,
+        if_dout: if_dout,
+        of_din : of_din ,
+    );
+}

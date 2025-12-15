@@ -1,0 +1,11 @@
+package package_shifter {
+    enum SHIFTER_OPERATION {
+        LEFT_LOGICALLY = 3'b000,
+        RIGHT_LOGICALLY = 3'b001,
+        LEFT_ARITHMETICALLY = 3'b010,
+        RIGHT_ARITHMETICALLY = 3'b011,
+        EXTENSION = 3'b100,
+        SWAP = 3'b101,
+        NOP = 3'b111,
+    }
+}

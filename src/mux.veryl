@@ -1,0 +1,11 @@
+module mux #(
+    param WIDTH                 : u32 = 32            ,
+    param NUMBER                : u32 = 2             ,
+    const CEILING_LOG2_OF_NUMBER: u32 = $clog2(NUMBER),
+) (
+    din     : input  logic<WIDTH>                  [NUMBER],
+    selector: input  logic<CEILING_LOG2_OF_NUMBER>         ,
+    dout    : output logic<WIDTH>                          ,
+) {
+    assign dout = din[selector];
+}

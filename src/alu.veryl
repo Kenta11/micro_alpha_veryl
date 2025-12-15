@@ -1,0 +1,25 @@
+import package_alu::*;
+import package_machine_data::*;
+
+module alu (
+    operation: input  ALU_OPERATION      ,
+    left     : input  MICRO1_MACHINE_WORD,
+    right    : input  MICRO1_MACHINE_WORD,
+    cin      : input  logic              ,
+    result   : output MICRO1_MACHINE_WORD,
+    cout     : output logic              ,
+) {
+    var destination: logic<$bits(cout) + $bits(result)>;
+
+    always_comb {
+        case operation {
+            ALU_OPERATION::ADD: destination = left + right + cin;
+            ALU_OPERATION::SUB: destination = left - right - cin;
+            ALU_OPERATION::AND: destination = left & right;
+            ALU_OPERATION::XOR: destination = left ^ right;
+            default           : destination = left | right;
+        }
+    }
+
+    assign {cout, result} = destination;
+}

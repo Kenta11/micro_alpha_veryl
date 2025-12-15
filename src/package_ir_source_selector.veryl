@@ -1,0 +1,9 @@
+package package_ir_source_selector {
+    enum IR_SOURCE_SELECTOR {
+        NO_OPERATION = 3'b000,
+        SET_IR = 3'b001,
+        INCREASE_RA = 3'b010,
+        INCREASE_RB = 3'b011,
+        DECREASE_RB = 3'b100,
+    }
+}

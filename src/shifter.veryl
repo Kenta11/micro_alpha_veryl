@@ -1,0 +1,26 @@
+import package_machine_data::*;
+import package_shifter::*;
+
+module shifter (
+    operation: input  SHIFTER_OPERATION  ,
+    r#in     : input  MICRO1_MACHINE_WORD,
+    cin      : input  logic              ,
+    out      : output MICRO1_MACHINE_WORD,
+    cout     : output logic              ,
+) {
+    var destination: logic<$bits(cout) + $bits(out)>;
+
+    always_comb {
+        case operation {
+            SHIFTER_OPERATION::LEFT_LOGICALLY      : destination = {r#in, cin};
+            SHIFTER_OPERATION::RIGHT_LOGICALLY     : destination = {r#in[0], cin, r#in[15:1]};
+            SHIFTER_OPERATION::LEFT_ARITHMETICALLY : destination = {r#in[15], r#in[15], r#in[13:0], cin};
+            SHIFTER_OPERATION::RIGHT_ARITHMETICALLY: destination = {r#in[0], r#in[15], r#in[15:1]};
+            SHIFTER_OPERATION::EXTENSION           : destination = {r#in[7], r#in[7] repeat 8, r#in[7:0]};
+            SHIFTER_OPERATION::SWAP                : destination = {1'b0, r#in[7:0], r#in[15:8]};
+            default                                : destination = {1'b0, r#in};
+        }
+    }
+
+    assign {cout, out} = destination;
+}

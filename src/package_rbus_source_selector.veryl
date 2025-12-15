@@ -1,0 +1,17 @@
+package package_rbus_source_selector {
+    enum RBUS_SOURCE_SELECTOR {
+        R0 = 4'b0000,
+        R1 = 4'b0001,
+        R2 = 4'b0010,
+        R3 = 4'b0011,
+        R4 = 4'b0100,
+        R5 = 4'b0101,
+        R6 = 4'b0110,
+        R7 = 4'b0111,
+        RA = 4'b1000,
+        RAP = 4'b1001,
+        SLT = 4'b1010,
+        LLT = 4'b1011,
+        NRB = 4'b1111,
+    }
+}

@@ -1,0 +1,106 @@
+module uart_transmitter_controler #(
+    param CLOCK_FREQUENCY: logic<32> = 32'd100_000_000,
+    param BAUD_RATE      : logic<32> = 32'd115200     ,
+    param WORD_WIDTH     : logic<32> = 32'd8          ,
+) (
+    clk  : input  clock            ,
+    rst  : input  reset            ,
+    din  : input  logic<WORD_WIDTH>,
+    empty: input  logic            ,
+    re   : output logic            ,
+    dout : output logic            ,
+) {
+    // constant
+    const ONE_CYCLE: logic<32> = CLOCK_FREQUENCY / BAUD_RATE;
+
+    // type definition
+    enum state_t {
+        WAIT = 3'h0,
+        SEND_ENABLE = 3'h1,
+        LOAD_DATA = 3'h2,
+        TRANSMIT_START_BIT = 3'h3,
+        TRANSMIT_DATA_BIT = 3'h4,
+        TRANSMIT_STOP_BIT = 3'h5,
+    }
+
+    // registers and wires
+    var state           : state_t            ;
+    var data            : logic  <WORD_WIDTH>;
+    var clocks          : logic  <32>        ;
+    var transmitted_bits: logic  <32>        ;
+    var full_clocks     : logic              ;
+
+    // logics
+    always_ff {
+        if_reset {
+            re = 1'b0;
+        } else {
+            case state {
+                state_t::WAIT: re = (~empty);
+                default      : re = 1'b0;
+            }
+        }
+    }
+
+    always_comb {
+        case state {
+            state_t::TRANSMIT_START_BIT: dout = 1'b0;
+            state_t::TRANSMIT_DATA_BIT : dout = data[0];
+            default                    : dout = 1'b1;
+        }
+    }
+
+    always_ff {
+        if_reset {
+            state = state_t::WAIT;
+        } else {
+            case state {
+                state_t::WAIT              : state = if (~empty) ? state_t::SEND_ENABLE : state;
+                state_t::SEND_ENABLE       : state = state_t::LOAD_DATA;
+                state_t::LOAD_DATA         : state = state_t::TRANSMIT_START_BIT;
+                state_t::TRANSMIT_START_BIT: state = if full_clocks ? state_t::TRANSMIT_DATA_BIT : state;
+                state_t::TRANSMIT_DATA_BIT : state = if (full_clocks && (transmitted_bits == (WORD_WIDTH - 1))) ? state_t::TRANSMIT_STOP_BIT : state;
+                state_t::TRANSMIT_STOP_BIT : state = if full_clocks ? state_t::WAIT : state;
+                default                    : state = state;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            data = {1'b1 repeat WORD_WIDTH + 1};
+        } else {
+            case state {
+                state_t::LOAD_DATA        : data = din;
+                state_t::TRANSMIT_DATA_BIT: data = if full_clocks ? {1'b1, data[WORD_WIDTH - 1:1]} : data;
+                default                   : data = data;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            clocks = 32'h0;
+        } else {
+            case state {
+                state_t::TRANSMIT_START_BIT: clocks = if full_clocks ? 32'h0 : clocks + 32'h1;
+                state_t::TRANSMIT_DATA_BIT : clocks = if full_clocks ? 32'h0 : clocks + 32'h1;
+                state_t::TRANSMIT_STOP_BIT : clocks = if full_clocks ? 32'h0 : clocks + 32'h1;
+                default                    : clocks = 32'h0;
+            }
+        }
+    }
+
+    always_ff {
+        if_reset {
+            transmitted_bits = 32'h0;
+        } else {
+            case state {
+                state_t::TRANSMIT_DATA_BIT: transmitted_bits = if full_clocks ? transmitted_bits + 32'h1 : transmitted_bits;
+                default                   : transmitted_bits = 32'h0;
+            }
+        }
+    }
+
+    assign full_clocks = (clocks == (ONE_CYCLE - 1));
+}
