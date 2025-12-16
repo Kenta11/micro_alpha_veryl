@@ -11,24 +11,20 @@ module uart_transmitter #(
     txd : output logic            ,
 ) {
     // registers and wires
-    var data        : logic<WORD_WIDTH>;
-    var empty       : logic            ;
-    var re          : logic            ;
-    var reset_for_sv: logic            ;
-
-    // logic
-    assign reset_for_sv = rst as 1;
+    var data : logic<WORD_WIDTH>;
+    var empty: logic            ;
+    var re   : logic            ;
 
     // modules
     inst fifo: $sv::fifo_generator_0 (
-        clk  : clk         ,
-        srst : reset_for_sv,
-        din  : din         ,
-        full : full        ,
-        wr_en: we          ,
-        dout : data        ,
-        empty: empty       ,
-        rd_en: re          ,
+        clk  : clk                   ,
+        srst : rst as reset_sync_high,
+        din  : din                   ,
+        full : full                  ,
+        wr_en: we                    ,
+        dout : data                  ,
+        empty: empty                 ,
+        rd_en: re                    ,
     );
 
     inst tx: uart_transmitter_controler #(

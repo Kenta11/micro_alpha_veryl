@@ -11,13 +11,9 @@ module uart_receiver #(
     re   : input  logic            ,
 ) {
     // registers and wires
-    var data        : logic<WORD_WIDTH>;
-    var full        : logic            ;
-    var we          : logic            ;
-    var reset_for_sv: logic            ;
-
-    // logic
-    assign reset_for_sv = rst as 1;
+    var data: logic<WORD_WIDTH>;
+    var full: logic            ;
+    var we  : logic            ;
 
     // modules
     inst rx: uart_receiver_controler #(
@@ -34,13 +30,13 @@ module uart_receiver #(
     );
 
     inst fifo: $sv::fifo_generator_0 (
-        clk  : clk         ,
-        srst : reset_for_sv,
-        din  : data        ,
-        full : full        ,
-        wr_en: we          ,
-        dout : dout        ,
-        empty: empty       ,
-        rd_en: re          ,
+        clk  : clk                   ,
+        srst : rst as reset_sync_high,
+        din  : data                  ,
+        full : full                  ,
+        wr_en: we                    ,
+        dout : dout                  ,
+        empty: empty                 ,
+        rd_en: re                    ,
     );
 }
