@@ -24,7 +24,7 @@ module controler #(
     import shifter_pkg::*;
 
     // type definitions
-    enum PHASE {
+    enum phase_t {
         INIT = 3'h0,
         T1 = 3'h1,
         T2 = 3'h2,
@@ -103,7 +103,7 @@ module controler #(
     const FLAG_INDEX_T    : logic<3>  = 3'h0;
 
     // registers and wires
-    var phase               : PHASE                    ;
+    var phase               : phase_t                  ;
     var cmar                : MICRO1_CONTROL_ADDRESS   ;
     var cmdr                : MICRO1_CONTROL_WORD      ;
     var cmar_stack          : MICRO1_CONTROL_WORD   <8>;
@@ -118,10 +118,10 @@ module controler #(
     var flag_cz             : logic                    ;
     var flag_t              : logic                    ;
     var test                : logic                    ;
-    var lb                  : LBUS_SOURCE_SELECTOR     ;
-    var rb                  : RBUS_SOURCE_SELECTOR     ;
-    var al                  : ALU_OPERATION            ;
-    var sh                  : SHIFTER_OPERATION        ;
+    var lb                  : lbus_source_selector_t   ;
+    var rb                  : rbus_source_selector_t   ;
+    var al                  : alu_operation_t          ;
+    var sh                  : shifter_operation_t      ;
     var sb                  : sb_t                     ;
     var mm                  : mm_t                     ;
     var sq                  : sq_t                     ;
@@ -134,13 +134,13 @@ module controler #(
     assign c_if.rbus_source_selector = rb;
 
     assign c_if.alu_operation = case al {
-        ALU_OPERATION::IAL: case c_if.ir[14:12] {
-            3'b000 : ALU_OPERATION::ADD,
-            3'b001 : ALU_OPERATION::SUB,
-            3'b010 : ALU_OPERATION::AND,
-            3'b011 : ALU_OPERATION::OR,
-            3'b100 : ALU_OPERATION::XOR,
-            default: ALU_OPERATION::NOP,
+        alu_operation_t::IAL: case c_if.ir[14:12] {
+            3'b000 : alu_operation_t::ADD,
+            3'b001 : alu_operation_t::SUB,
+            3'b010 : alu_operation_t::AND,
+            3'b011 : alu_operation_t::OR,
+            3'b100 : alu_operation_t::XOR,
+            default: alu_operation_t::NOP,
         },
         default: al,
     };
@@ -148,40 +148,40 @@ module controler #(
     assign c_if.shifter_operation = sh;
 
     assign c_if.gpr_destination_selector = case phase {
-        PHASE::T5: case sb {
-            sb_t::R0 : GPR_DESTINATION_SELECTOR::GPR0,
-            sb_t::R1 : GPR_DESTINATION_SELECTOR::GPR1,
-            sb_t::R2 : GPR_DESTINATION_SELECTOR::GPR2,
-            sb_t::R3 : GPR_DESTINATION_SELECTOR::GPR3,
-            sb_t::R4 : GPR_DESTINATION_SELECTOR::GPR4,
-            sb_t::R5 : GPR_DESTINATION_SELECTOR::GPR5,
-            sb_t::R6 : GPR_DESTINATION_SELECTOR::GPR6,
-            sb_t::R7 : GPR_DESTINATION_SELECTOR::GPR7,
-            sb_t::RA : GPR_DESTINATION_SELECTOR::RA,
-            sb_t::RAP: GPR_DESTINATION_SELECTOR::RAP,
-            sb_t::RB : GPR_DESTINATION_SELECTOR::RB,
-            sb_t::RBP: GPR_DESTINATION_SELECTOR::RBP,
-            default  : GPR_DESTINATION_SELECTOR::NONE,
+        phase_t::T5: case sb {
+            sb_t::R0 : gpr_destination_selector_t::GPR0,
+            sb_t::R1 : gpr_destination_selector_t::GPR1,
+            sb_t::R2 : gpr_destination_selector_t::GPR2,
+            sb_t::R3 : gpr_destination_selector_t::GPR3,
+            sb_t::R4 : gpr_destination_selector_t::GPR4,
+            sb_t::R5 : gpr_destination_selector_t::GPR5,
+            sb_t::R6 : gpr_destination_selector_t::GPR6,
+            sb_t::R7 : gpr_destination_selector_t::GPR7,
+            sb_t::RA : gpr_destination_selector_t::RA,
+            sb_t::RAP: gpr_destination_selector_t::RAP,
+            sb_t::RB : gpr_destination_selector_t::RB,
+            sb_t::RBP: gpr_destination_selector_t::RBP,
+            default  : gpr_destination_selector_t::NONE,
         },
-        default: GPR_DESTINATION_SELECTOR::NONE,
+        default: gpr_destination_selector_t::NONE,
     };
 
     assign c_if.ir_source_selector = case phase {
-        PHASE::T3: case ex {
-            ex_t::LIR: IR_SOURCE_SELECTOR::SET_IR,
-            default  : IR_SOURCE_SELECTOR::NO_OPERATION,
+        phase_t::T3: case ex {
+            ex_t::LIR: ir_source_selector_t::SET_IR,
+            default  : ir_source_selector_t::NO_OPERATION,
         },
-        PHASE::T5: case ex {
-            ex_t::INA: IR_SOURCE_SELECTOR::INCREASE_RA,
-            ex_t::INB: IR_SOURCE_SELECTOR::INCREASE_RB,
-            ex_t::DCB: IR_SOURCE_SELECTOR::DECREASE_RB,
-            default  : IR_SOURCE_SELECTOR::NO_OPERATION,
+        phase_t::T5: case ex {
+            ex_t::INA: ir_source_selector_t::INCREASE_RA,
+            ex_t::INB: ir_source_selector_t::INCREASE_RB,
+            ex_t::DCB: ir_source_selector_t::DECREASE_RB,
+            default  : ir_source_selector_t::NO_OPERATION,
         },
-        default: IR_SOURCE_SELECTOR::NO_OPERATION,
+        default: ir_source_selector_t::NO_OPERATION,
     };
 
     assign c_if.set_mar = case phase {
-        PHASE::T2: case mm {
+        phase_t::T2: case mm {
             mm_t::RM: 1'b1,
             mm_t::WM: 1'b1,
             default : 1'b0,
@@ -190,7 +190,7 @@ module controler #(
     };
 
     assign c_if.set_fsr = case phase {
-        PHASE::T5: case ex {
+        phase_t::T5: case ex {
             ex_t::FLS: 1'b1,
             default  : 1'b0,
         },
@@ -198,7 +198,7 @@ module controler #(
     };
 
     assign c_if.set_pc = case phase {
-        PHASE::T5: case sb {
+        phase_t::T5: case sb {
             sb_t::PC: 1'b1,
             default : 1'b0,
         },
@@ -219,7 +219,7 @@ module controler #(
             c_if.inbus_valid = 1'b0;
         } else {
             case phase {
-                PHASE::T2: case ex {
+                phase_t::T2: case ex {
                     ex_t::EIO: {
                         if (c_if.ir == 16'hEC00) {
                             c_if.inbus_valid = ~if_empty;
@@ -237,12 +237,12 @@ module controler #(
     assign cm_addr = cmar;
 
     assign mm_we = case phase {
-        PHASE::T2: mm_write_reservation,
-        default  : 1'h0,
+        phase_t::T2: mm_write_reservation,
+        default    : 1'h0,
     };
 
     assign if_re = case phase {
-        PHASE::T2: case ex {
+        phase_t::T2: case ex {
             ex_t::EIO: (c_if.ir == 16'hEC00) && (~if_empty),
             default  : 1'b0,
         },
@@ -250,7 +250,7 @@ module controler #(
     };
 
     assign of_we = case phase {
-        PHASE::T3: case ex {
+        phase_t::T3: case ex {
             ex_t::LIO: (c_if.ir == 16'hED01) && (~of_full),
             default  : 1'b0,
         },
@@ -262,7 +262,7 @@ module controler #(
             led_hlt = 1'h0;
         } else {
             case phase {
-                PHASE::T5: case ex {
+                phase_t::T5: case ex {
                     ex_t::HLT: led_hlt = 1'h1;
                     default  : led_hlt = 1'h0;
                 }
@@ -276,7 +276,7 @@ module controler #(
             led_ov = 1'h0;
         } else {
             case phase {
-                PHASE::T5: case ex {
+                phase_t::T5: case ex {
                     ex_t::OV: led_ov = 1'h1;
                     default : led_ov = 1'h0;
                 }
@@ -287,18 +287,18 @@ module controler #(
 
     always_ff {
         if_reset {
-            phase = PHASE::INIT;
+            phase = phase_t::INIT;
         } else {
             case phase {
-                PHASE::INIT: phase = PHASE::T1;
-                PHASE::T1  : phase = PHASE::T2;
-                PHASE::T2  : phase = PHASE::T3;
-                PHASE::T3  : phase = PHASE::T4;
-                PHASE::T4  : phase = PHASE::T5;
-                PHASE::T5  : case ex {
-                    ex_t::HLT: phase = PHASE::HLT;
-                    ex_t::OV : phase = PHASE::HLT;
-                    default  : phase = PHASE::T1;
+                phase_t::INIT: phase = phase_t::T1;
+                phase_t::T1  : phase = phase_t::T2;
+                phase_t::T2  : phase = phase_t::T3;
+                phase_t::T3  : phase = phase_t::T4;
+                phase_t::T4  : phase = phase_t::T5;
+                phase_t::T5  : case ex {
+                    ex_t::HLT: phase = phase_t::HLT;
+                    ex_t::OV : phase = phase_t::HLT;
+                    default  : phase = phase_t::T1;
                 }
                 default: phase = phase;
             }
@@ -310,7 +310,7 @@ module controler #(
             cmar = ENTRY_POINT;
         } else {
             case phase {
-                PHASE::T2: case sq {
+                phase_t::T2: case sq {
                     sq_t::B  : cmar = {ts, lt};
                     sq_t::BP : cmar = {ts, lt};
                     sq_t::RTN: cmar = cmar_stack[cmar_stack_pointer - 3'h1];
@@ -330,10 +330,10 @@ module controler #(
     always_ff {
         if_reset {
             cmdr = {
-                LBUS_SOURCE_SELECTOR::NLB,
-                RBUS_SOURCE_SELECTOR::NRB,
-                ALU_OPERATION::NOP,
-                SHIFTER_OPERATION::NOP,
+                lbus_source_selector_t::NLB,
+                rbus_source_selector_t::NRB,
+                alu_operation_t::NOP,
+                shifter_operation_t::NOP,
                 sb_t::NONE,
                 mm_t::NMM,
                 sq_t::NSQ,
@@ -343,9 +343,9 @@ module controler #(
             };
         } else {
             case phase {
-                PHASE::INIT: cmdr = cm_din;
-                PHASE::T5  : cmdr = cm_din;
-                default    : cmdr = cmdr;
+                phase_t::INIT: cmdr = cm_din;
+                phase_t::T5  : cmdr = cm_din;
+                default      : cmdr = cmdr;
             }
         }
     }
@@ -357,7 +357,7 @@ module controler #(
             }
         } else {
             case phase {
-                PHASE::T2: case sq {
+                phase_t::T2: case sq {
                     sq_t::BP: cmar_stack[cmar_stack_pointer] = cmar;
                     default : cmar_stack[cmar_stack_pointer] = cmar_stack[cmar_stack_pointer];
                 }
@@ -371,7 +371,7 @@ module controler #(
             cmar_stack_pointer = 3'h0;
         } else {
             case phase {
-                PHASE::T2: case sq {
+                phase_t::T2: case sq {
                     sq_t::BP : cmar_stack_pointer = cmar_stack_pointer + 3'h1;
                     sq_t::RTN: cmar_stack_pointer = cmar_stack_pointer - 3'h1;
                     default  : cmar_stack_pointer = cmar_stack_pointer;
@@ -386,8 +386,8 @@ module controler #(
             mm_write_reservation = 1'h0;
         } else {
             case phase {
-                PHASE::T2: mm_write_reservation = mm == mm_t::WM;
-                default  : mm_write_reservation = mm_write_reservation;
+                phase_t::T2: mm_write_reservation = mm == mm_t::WM;
+                default    : mm_write_reservation = mm_write_reservation;
             }
         }
     }
@@ -397,7 +397,7 @@ module controler #(
             c = CONSTANT_ZERO_40[7:0];
         } else {
             case phase {
-                PHASE::T5: case ex {
+                phase_t::T5: case ex {
                     ex_t::CM1: c = c - 8'h1;
                     ex_t::SC : c = c_if.rbus_lower;
                     default  : c = c;
@@ -412,45 +412,45 @@ module controler #(
             flags = 6'h0;
         } else {
             case phase {
-                PHASE::T5: flags = {flag_zer, flag_neg, flag_cry, flag_ov, flag_t};
-                default  : flags = flags;
+                phase_t::T5: flags = {flag_zer, flag_neg, flag_cry, flag_ov, flag_t};
+                default    : flags = flags;
             }
         }
     }
 
     assign flag_zer = case al {
-        ALU_OPERATION::ADD: c_if.abus == CONSTANT_ZERO_40[15:0],
-        ALU_OPERATION::SUB: c_if.abus == CONSTANT_ZERO_40[15:0],
-        ALU_OPERATION::AND: c_if.abus == CONSTANT_ZERO_40[15:0],
-        ALU_OPERATION::OR : c_if.abus == CONSTANT_ZERO_40[15:0],
-        default           : 1'h0,
+        alu_operation_t::ADD: c_if.abus == CONSTANT_ZERO_40[15:0],
+        alu_operation_t::SUB: c_if.abus == CONSTANT_ZERO_40[15:0],
+        alu_operation_t::AND: c_if.abus == CONSTANT_ZERO_40[15:0],
+        alu_operation_t::OR : c_if.abus == CONSTANT_ZERO_40[15:0],
+        default             : 1'h0,
     };
 
     assign flag_neg = case al {
-        ALU_OPERATION::ADD: c_if.abus[15],
-        ALU_OPERATION::SUB: c_if.abus[15],
-        default           : 1'h0,
+        alu_operation_t::ADD: c_if.abus[15],
+        alu_operation_t::SUB: c_if.abus[15],
+        default             : 1'h0,
     };
 
     assign flag_cry = case c_if.shifter_operation {
-        SHIFTER_OPERATION::LEFT_LOGICALLY      : c_if.shifter_cout,
-        SHIFTER_OPERATION::RIGHT_LOGICALLY     : c_if.shifter_cout,
-        SHIFTER_OPERATION::LEFT_ARITHMETICALLY : c_if.shifter_cout,
-        SHIFTER_OPERATION::RIGHT_ARITHMETICALLY: c_if.shifter_cout,
-        SHIFTER_OPERATION::EXTENSION           : c_if.shifter_cout,
-        default                                : case al {
-            ALU_OPERATION::ADD: c_if.alu_cout,
-            ALU_OPERATION::SUB: c_if.alu_cout,
-            default           : c_if.alu_cout,
+        shifter_operation_t::LEFT_LOGICALLY      : c_if.shifter_cout,
+        shifter_operation_t::RIGHT_LOGICALLY     : c_if.shifter_cout,
+        shifter_operation_t::LEFT_ARITHMETICALLY : c_if.shifter_cout,
+        shifter_operation_t::RIGHT_ARITHMETICALLY: c_if.shifter_cout,
+        shifter_operation_t::EXTENSION           : c_if.shifter_cout,
+        default                                  : case al {
+            alu_operation_t::ADD: c_if.alu_cout,
+            alu_operation_t::SUB: c_if.alu_cout,
+            default             : c_if.alu_cout,
         },
     };
 
     assign flag_ov = case c_if.shifter_operation {
-        SHIFTER_OPERATION::LEFT_ARITHMETICALLY: c_if.abus[15] ^ c_if.sbus_msb,
-        default                               : case al {
-            ALU_OPERATION::ADD: (c_if.lbus_msb == c_if.rbus_msb) ^ c_if.abus[15],
-            ALU_OPERATION::SUB: (c_if.lbus_msb | (~c_if.rbus_msb) | c_if.abus[15]) | ((~c_if.lbus_msb) | c_if.rbus_msb | (~c_if.abus[15])),
-            default           : 1'h0,
+        shifter_operation_t::LEFT_ARITHMETICALLY: c_if.abus[15] ^ c_if.sbus_msb,
+        default                                 : case al {
+            alu_operation_t::ADD: (c_if.lbus_msb == c_if.rbus_msb) ^ c_if.abus[15],
+            alu_operation_t::SUB: (c_if.lbus_msb | (~c_if.rbus_msb) | c_if.abus[15]) | ((~c_if.lbus_msb) | c_if.rbus_msb | (~c_if.abus[15])),
+            default             : 1'h0,
         },
     };
 

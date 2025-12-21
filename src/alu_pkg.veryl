@@ -1,5 +1,5 @@
 package alu_pkg {
-    enum ALU_OPERATION {
+    enum alu_operation_t {
         ADD = 3'b000,
         SUB = 3'b001,
         AND = 3'b010,

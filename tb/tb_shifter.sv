@@ -7,7 +7,7 @@ module tb_shifter;
 
   localparam [31:0] CLOCK_PERIOD = 32'd10;
 
-  SHIFTER_OPERATION   operation;
+  shifter_operation_t operation;
   MICRO1_MACHINE_WORD in;
   logic               cin;
   MICRO1_MACHINE_WORD out;
@@ -15,7 +15,7 @@ module tb_shifter;
 
   `TEST_SUITE begin
     `TEST_CASE("test_shift_left_logically_without_carry") begin
-      operation = SHIFTER_OPERATION_LEFT_LOGICALLY;
+      operation = shifter_operation_t_LEFT_LOGICALLY;
       in = 16'hA5A5;
       cin = 0;
 
@@ -25,7 +25,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_shift_left_logically_with_carry") begin
-      operation = SHIFTER_OPERATION_LEFT_LOGICALLY;
+      operation = shifter_operation_t_LEFT_LOGICALLY;
       in = 16'hA5A5;
       cin = 1;
 
@@ -35,7 +35,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_shift_right_logically_without_carry") begin
-      operation = SHIFTER_OPERATION_RIGHT_LOGICALLY;
+      operation = shifter_operation_t_RIGHT_LOGICALLY;
       in = 16'hA5A5;
       cin = 0;
 
@@ -45,7 +45,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_shift_right_logically_with_carry") begin
-      operation = SHIFTER_OPERATION_RIGHT_LOGICALLY;
+      operation = shifter_operation_t_RIGHT_LOGICALLY;
       in = 16'hA5A5;
       cin = 1;
 
@@ -55,7 +55,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_shift_left_arithmetically_without_carry") begin
-      operation = SHIFTER_OPERATION_LEFT_ARITHMETICALLY;
+      operation = shifter_operation_t_LEFT_ARITHMETICALLY;
       in = 16'hFFFF;
       cin = 0;
 
@@ -65,7 +65,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_shift_left_arithmetically_with_carry") begin
-      operation = SHIFTER_OPERATION_LEFT_ARITHMETICALLY;
+      operation = shifter_operation_t_LEFT_ARITHMETICALLY;
       in = 16'hFFFF;
       cin = 1;
 
@@ -75,7 +75,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_shift_right_arithmetically_without_carry") begin
-      operation = SHIFTER_OPERATION_RIGHT_ARITHMETICALLY;
+      operation = shifter_operation_t_RIGHT_ARITHMETICALLY;
       in = 16'hFFFF;
       cin = 0;
 
@@ -85,7 +85,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_shift_right_arithmetically_with_carry") begin
-      operation = SHIFTER_OPERATION_RIGHT_ARITHMETICALLY;
+      operation = shifter_operation_t_RIGHT_ARITHMETICALLY;
       in = 16'hFFFF;
       cin = 1;
 
@@ -95,7 +95,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_extension_with_unsigned") begin
-      operation = SHIFTER_OPERATION_EXTENSION;
+      operation = shifter_operation_t_EXTENSION;
       in = 16'h007F;
       cin = 0;
 
@@ -105,7 +105,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b0);
     end
     `TEST_CASE("test_extension_with_signed") begin
-      operation = SHIFTER_OPERATION_EXTENSION;
+      operation = shifter_operation_t_EXTENSION;
       in = 16'h00FF;
       cin = 0;
 
@@ -115,7 +115,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_swap") begin
-      operation = SHIFTER_OPERATION_SWAP;
+      operation = shifter_operation_t_SWAP;
       in = 16'h0123;
       cin = 0;
 
@@ -125,7 +125,7 @@ module tb_shifter;
       `CHECK_EQUAL(cout, 1'b0);
     end
     `TEST_CASE("test_nop") begin
-      operation = SHIFTER_OPERATION_NOP;
+      operation = shifter_operation_t_NOP;
       in = 16'h0123;
       cin = 0;
 

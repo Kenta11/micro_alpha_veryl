@@ -1,5 +1,5 @@
 module alu (
-    operation: input  ALU_OPERATION      ,
+    operation: input  alu_operation_t    ,
     left     : input  MICRO1_MACHINE_WORD,
     right    : input  MICRO1_MACHINE_WORD,
     cin      : input  logic              ,
@@ -11,10 +11,10 @@ module alu (
     import machine_data_pkg::*;
 
     assign {cout, result} = case operation {
-        ALU_OPERATION::ADD: left + right + cin,
-        ALU_OPERATION::SUB: left - right - cin,
-        ALU_OPERATION::AND: left & right,
-        ALU_OPERATION::XOR: left ^ right,
-        default           : left | right,
+        alu_operation_t::ADD: left + right + cin,
+        alu_operation_t::SUB: left - right - cin,
+        alu_operation_t::AND: left & right,
+        alu_operation_t::XOR: left ^ right,
+        default             : left | right,
     };
 }

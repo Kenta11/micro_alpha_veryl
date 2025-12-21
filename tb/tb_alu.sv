@@ -7,7 +7,7 @@ module tb_alu;
 
   localparam [31:0] CLOCK_PERIOD = 32'd10;
 
-  ALU_OPERATION       operation;
+  alu_operation_t     operation;
   MICRO1_MACHINE_WORD left;
   MICRO1_MACHINE_WORD right;
   logic               cin;
@@ -16,7 +16,7 @@ module tb_alu;
 
   `TEST_SUITE begin
     `TEST_CASE("test_add_without_carry") begin
-      operation = ALU_OPERATION_ADD;
+      operation = alu_operation_t_ADD;
       left = 16'd20;
       right = 16'd32;
       cin = 1'b0;
@@ -27,7 +27,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b0);
     end
     `TEST_CASE("test_add_with_carry") begin
-      operation = ALU_OPERATION_ADD;
+      operation = alu_operation_t_ADD;
       left = 16'd20;
       right = 16'd32;
       cin = 1'b1;
@@ -38,7 +38,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b0);
     end
     `TEST_CASE("test_add_without_carry_then_overflow") begin
-      operation = ALU_OPERATION_ADD;
+      operation = alu_operation_t_ADD;
       left = 16'hFFF3;
       right = 16'h000E;
       cin = 1'b0;
@@ -49,7 +49,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_add_with_carry_then_overflow") begin
-      operation = ALU_OPERATION_ADD;
+      operation = alu_operation_t_ADD;
       left = 16'hFFF3;
       right = 16'h000E;
       cin = 1'b1;
@@ -60,7 +60,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_sub_without_carry") begin
-      operation = ALU_OPERATION_SUB;
+      operation = alu_operation_t_SUB;
       left = 16'd58;
       right = 16'd13;
       cin = 1'b0;
@@ -71,7 +71,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b0);
     end
     `TEST_CASE("test_sub_with_carry") begin
-      operation = ALU_OPERATION_SUB;
+      operation = alu_operation_t_SUB;
       left = 16'd58;
       right = 16'd13;
       cin = 1'b1;
@@ -82,7 +82,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b0);
     end
     `TEST_CASE("test_sub_without_carry_then_underflow") begin
-      operation = ALU_OPERATION_SUB;
+      operation = alu_operation_t_SUB;
       left = 16'd2;
       right = 16'd5;
       cin = 1'b0;
@@ -93,7 +93,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_sub_with_carry_then_underflow") begin
-      operation = ALU_OPERATION_SUB;
+      operation = alu_operation_t_SUB;
       left = 16'd3;
       right = 16'd7;
       cin = 1'b1;
@@ -104,7 +104,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b1);
     end
     `TEST_CASE("test_and") begin
-      operation = ALU_OPERATION_AND;
+      operation = alu_operation_t_AND;
       left = 16'hFAFA;
       right = 16'h5F5F;
       cin = 1'b0;
@@ -115,7 +115,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b0);
     end
     `TEST_CASE("test_or") begin
-      operation = ALU_OPERATION_OR;
+      operation = alu_operation_t_OR;
       left = 16'h5A5A;
       right = 16'hA5A5;
       cin = 1'b0;
@@ -126,7 +126,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b0);
     end
     `TEST_CASE("test_xor") begin
-      operation = ALU_OPERATION_XOR;
+      operation = alu_operation_t_XOR;
       left = 16'hFFFF;
       right = 16'h5A5A;
       cin = 1'b0;
@@ -137,7 +137,7 @@ module tb_alu;
       `CHECK_EQUAL(cout, 1'b0);
     end
     `TEST_CASE("test_nop") begin
-      operation = ALU_OPERATION_NOP;
+      operation = alu_operation_t_NOP;
       left = 16'hA5A5;
       right = 16'h5A5A;
       cin = 1'b0;

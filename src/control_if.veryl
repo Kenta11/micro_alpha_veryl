@@ -8,27 +8,27 @@ interface control_if {
     import rbus_source_selector_pkg::*;
     import shifter_pkg::*;
 
-    var lbus_source_selector    : LBUS_SOURCE_SELECTOR       ;
-    var rbus_source_selector    : RBUS_SOURCE_SELECTOR       ;
-    var alu_operation           : ALU_OPERATION              ;
-    var shifter_operation       : SHIFTER_OPERATION          ;
-    var gpr_destination_selector: GPR_DESTINATION_SELECTOR   ;
-    var ir_source_selector      : IR_SOURCE_SELECTOR         ;
-    var set_mar                 : logic                      ;
-    var set_fsr                 : logic                      ;
-    var set_pc                  : logic                      ;
-    var literal                 : MICRO1_MACHINE_WORD        ;
-    var flags                   : logic                   <4>;
-    var cin                     : logic                      ;
-    var inbus_valid             : logic                      ;
-    var ir                      : MICRO1_MACHINE_WORD        ;
-    var alu_cout                : logic                      ;
-    var shifter_cout            : logic                      ;
-    var lbus_msb                : logic                      ;
-    var rbus_msb                : logic                      ;
-    var rbus_lower              : logic                   <8>;
-    var abus                    : MICRO1_MACHINE_WORD        ;
-    var sbus_msb                : logic                      ;
+    var lbus_source_selector    : lbus_source_selector_t       ;
+    var rbus_source_selector    : rbus_source_selector_t       ;
+    var alu_operation           : alu_operation_t              ;
+    var shifter_operation       : shifter_operation_t          ;
+    var gpr_destination_selector: gpr_destination_selector_t   ;
+    var ir_source_selector      : ir_source_selector_t         ;
+    var set_mar                 : logic                        ;
+    var set_fsr                 : logic                        ;
+    var set_pc                  : logic                        ;
+    var literal                 : MICRO1_MACHINE_WORD          ;
+    var flags                   : logic                     <4>;
+    var cin                     : logic                        ;
+    var inbus_valid             : logic                        ;
+    var ir                      : MICRO1_MACHINE_WORD          ;
+    var alu_cout                : logic                        ;
+    var shifter_cout            : logic                        ;
+    var lbus_msb                : logic                        ;
+    var rbus_msb                : logic                        ;
+    var rbus_lower              : logic                     <8>;
+    var abus                    : MICRO1_MACHINE_WORD          ;
+    var sbus_msb                : logic                        ;
 
     modport controler {
         lbus_source_selector    : output,

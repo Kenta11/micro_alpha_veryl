@@ -126,19 +126,19 @@ module datapath #(
             }
         } else {
             case c_if.gpr_destination_selector {
-                GPR_DESTINATION_SELECTOR::GPR0: gpr[0]   = sbus;
-                GPR_DESTINATION_SELECTOR::GPR1: gpr[1]   = sbus;
-                GPR_DESTINATION_SELECTOR::GPR2: gpr[2]   = sbus;
-                GPR_DESTINATION_SELECTOR::GPR3: gpr[3]   = sbus;
-                GPR_DESTINATION_SELECTOR::GPR4: gpr[4]   = sbus;
-                GPR_DESTINATION_SELECTOR::GPR5: gpr[5]   = sbus;
-                GPR_DESTINATION_SELECTOR::GPR6: gpr[6]   = sbus;
-                GPR_DESTINATION_SELECTOR::GPR7: gpr[7]   = sbus;
-                GPR_DESTINATION_SELECTOR::RA  : gpr[ra]  = sbus;
-                GPR_DESTINATION_SELECTOR::RAP : gpr[rap] = sbus;
-                GPR_DESTINATION_SELECTOR::RB  : gpr[rb]  = sbus;
-                GPR_DESTINATION_SELECTOR::RBP : gpr[rbp] = sbus;
-                default                       : gpr[0]   = gpr[0];
+                gpr_destination_selector_t::GPR0: gpr[0]   = sbus;
+                gpr_destination_selector_t::GPR1: gpr[1]   = sbus;
+                gpr_destination_selector_t::GPR2: gpr[2]   = sbus;
+                gpr_destination_selector_t::GPR3: gpr[3]   = sbus;
+                gpr_destination_selector_t::GPR4: gpr[4]   = sbus;
+                gpr_destination_selector_t::GPR5: gpr[5]   = sbus;
+                gpr_destination_selector_t::GPR6: gpr[6]   = sbus;
+                gpr_destination_selector_t::GPR7: gpr[7]   = sbus;
+                gpr_destination_selector_t::RA  : gpr[ra]  = sbus;
+                gpr_destination_selector_t::RAP : gpr[rap] = sbus;
+                gpr_destination_selector_t::RB  : gpr[rb]  = sbus;
+                gpr_destination_selector_t::RBP : gpr[rbp] = sbus;
+                default                         : gpr[0]   = gpr[0];
             }
         }
     }
@@ -178,11 +178,11 @@ module datapath #(
             c_if.ir = CONSTANT_ZERO_16;
         } else {
             case c_if.ir_source_selector {
-                IR_SOURCE_SELECTOR::SET_IR     : c_if.ir = lbus;
-                IR_SOURCE_SELECTOR::INCREASE_RA: c_if.ir = {op, rap, rb, nd};
-                IR_SOURCE_SELECTOR::INCREASE_RB: c_if.ir = {op, ra, rbp, nd};
-                IR_SOURCE_SELECTOR::DECREASE_RB: c_if.ir = {op, ra, rbm, nd};
-                default                        : c_if.ir = c_if.ir;
+                ir_source_selector_t::SET_IR     : c_if.ir = lbus;
+                ir_source_selector_t::INCREASE_RA: c_if.ir = {op, rap, rb, nd};
+                ir_source_selector_t::INCREASE_RB: c_if.ir = {op, ra, rbp, nd};
+                ir_source_selector_t::DECREASE_RB: c_if.ir = {op, ra, rbm, nd};
+                default                          : c_if.ir = c_if.ir;
             }
         }
     }

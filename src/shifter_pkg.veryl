@@ -1,5 +1,5 @@
 package shifter_pkg {
-    enum SHIFTER_OPERATION {
+    enum shifter_operation_t {
         LEFT_LOGICALLY = 3'b000,
         RIGHT_LOGICALLY = 3'b001,
         LEFT_ARITHMETICALLY = 3'b010,

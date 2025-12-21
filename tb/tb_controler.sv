@@ -62,12 +62,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -85,12 +85,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -108,12 +108,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -131,12 +131,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -154,12 +154,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -181,12 +181,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -204,12 +204,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -227,12 +227,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -250,12 +250,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -273,12 +273,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_R0);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_R0);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -300,12 +300,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_ADD);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_ADD);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -323,12 +323,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_ADD);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_ADD);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -346,12 +346,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_ADD);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_ADD);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -369,12 +369,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_ADD);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_ADD);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -392,12 +392,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_ADD);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_ADD);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -419,12 +419,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_LEFT_LOGICALLY);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_LEFT_LOGICALLY);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -442,12 +442,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_LEFT_LOGICALLY);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_LEFT_LOGICALLY);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -465,12 +465,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_LEFT_LOGICALLY);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_LEFT_LOGICALLY);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -488,12 +488,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_LEFT_LOGICALLY);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_LEFT_LOGICALLY);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -511,12 +511,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_LEFT_LOGICALLY);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_LEFT_LOGICALLY);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -538,12 +538,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -561,12 +561,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -584,12 +584,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -607,12 +607,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -630,12 +630,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_GPR0);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_GPR0);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -657,12 +657,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -680,12 +680,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -703,12 +703,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -726,12 +726,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -749,12 +749,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b1);
@@ -776,12 +776,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -799,12 +799,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b1);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -822,12 +822,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -845,12 +845,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -868,12 +868,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -893,12 +893,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -916,12 +916,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -939,12 +939,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -962,12 +962,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -985,12 +985,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1012,12 +1012,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1035,12 +1035,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b1);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1058,12 +1058,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1081,12 +1081,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1104,12 +1104,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1129,12 +1129,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1152,12 +1152,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1175,12 +1175,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1198,12 +1198,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1221,12 +1221,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1248,12 +1248,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1271,12 +1271,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1294,12 +1294,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1317,12 +1317,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1340,12 +1340,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1367,12 +1367,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1390,12 +1390,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1413,12 +1413,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1436,12 +1436,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1459,12 +1459,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b1);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1486,12 +1486,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1509,12 +1509,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1532,12 +1532,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1555,12 +1555,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1578,12 +1578,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1605,12 +1605,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1628,12 +1628,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1651,12 +1651,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1674,12 +1674,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1697,12 +1697,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1724,12 +1724,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1747,12 +1747,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1770,12 +1770,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_SET_IR);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_SET_IR);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1793,12 +1793,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1816,12 +1816,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1845,12 +1845,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1868,12 +1868,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1891,12 +1891,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1914,12 +1914,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1937,12 +1937,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1966,12 +1966,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -1989,12 +1989,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2012,12 +2012,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2035,12 +2035,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2058,12 +2058,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2085,12 +2085,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2108,12 +2108,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2131,12 +2131,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2154,12 +2154,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2177,12 +2177,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_INCREASE_RA);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_INCREASE_RA);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2204,12 +2204,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2227,12 +2227,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2250,12 +2250,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2273,12 +2273,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2296,12 +2296,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_INCREASE_RB);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_INCREASE_RB);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2323,12 +2323,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2346,12 +2346,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2369,12 +2369,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2392,12 +2392,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2415,12 +2415,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_DECREASE_RB);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_DECREASE_RB);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2442,12 +2442,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2465,12 +2465,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2488,12 +2488,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2511,12 +2511,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2534,12 +2534,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2557,12 +2557,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase HLT ***************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2584,12 +2584,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T1 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2607,12 +2607,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T2 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2630,12 +2630,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T3 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2653,12 +2653,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T4 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2676,12 +2676,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase T5 ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
@@ -2699,12 +2699,12 @@ module tb_control;
       #CLOCK_PERIOD;
 
       /**************************** phase OV ****************************/
-      `CHECK_EQUAL(c_if.lbus_source_selector, LBUS_SOURCE_SELECTOR_NLB);
-      `CHECK_EQUAL(c_if.rbus_source_selector, RBUS_SOURCE_SELECTOR_NRB);
-      `CHECK_EQUAL(c_if.alu_operation, ALU_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.shifter_operation, SHIFTER_OPERATION_NOP);
-      `CHECK_EQUAL(c_if.gpr_destination_selector, GPR_DESTINATION_SELECTOR_NONE);
-      `CHECK_EQUAL(c_if.ir_source_selector, IR_SOURCE_SELECTOR_NO_OPERATION);
+      `CHECK_EQUAL(c_if.lbus_source_selector, lbus_source_selector_t_NLB);
+      `CHECK_EQUAL(c_if.rbus_source_selector, rbus_source_selector_t_NRB);
+      `CHECK_EQUAL(c_if.alu_operation, alu_operation_t_NOP);
+      `CHECK_EQUAL(c_if.shifter_operation, shifter_operation_t_NOP);
+      `CHECK_EQUAL(c_if.gpr_destination_selector, gpr_destination_selector_t_NONE);
+      `CHECK_EQUAL(c_if.ir_source_selector, ir_source_selector_t_NO_OPERATION);
       `CHECK_EQUAL(c_if.set_mar, 1'b0);
       `CHECK_EQUAL(c_if.set_fsr, 1'b0);
       `CHECK_EQUAL(c_if.set_pc, 1'b0);
