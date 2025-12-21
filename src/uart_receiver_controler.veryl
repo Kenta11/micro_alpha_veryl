@@ -106,19 +106,15 @@ module uart_receiver_controler #(
         }
     }
 
-    always_comb {
-        case state {
-            state_t::WAIT: received_start_bit = (zeros == (ONE_CYCLE / 2));
-            default      : received_start_bit = 1'b0;
-        }
-    }
+    assign received_start_bit = case state {
+        state_t::WAIT: (zeros == (ONE_CYCLE / 2)),
+        default      : 1'b0,
+    };
 
-    always_comb {
-        case state {
-            state_t::RECEIVE_DATA_BIT: received_a_word = full_clocks && (received_bits == 4'h7);
-            default                  : received_a_word = 1'b0;
-        }
-    }
+    assign received_a_word = case state {
+        state_t::RECEIVE_DATA_BIT: full_clocks && (received_bits == 4'h7),
+        default                  : 1'b0,
+    };
 
     assign half_clocks = (clocks == (ONE_CYCLE / 2));
     assign full_clocks = (clocks == (ONE_CYCLE - 1));

@@ -194,11 +194,5 @@ module datapath #(
     assign rbp = c_if.ir[9:8] + 2'b1;
     assign rbm = c_if.ir[9:8] - 2'b1;
 
-    always_comb {
-        if (c_if.inbus_valid) {
-            inbus = {CONSTANT_ZERO_16[7:0], if_dout};
-        } else {
-            inbus = CONSTANT_ZERO_16;
-        }
-    }
+    assign inbus = if c_if.inbus_valid ? {CONSTANT_ZERO_16[7:0], if_dout} : CONSTANT_ZERO_16;
 }

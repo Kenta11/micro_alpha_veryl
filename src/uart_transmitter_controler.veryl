@@ -42,13 +42,11 @@ module uart_transmitter_controler #(
         }
     }
 
-    always_comb {
-        case state {
-            state_t::TRANSMIT_START_BIT: dout = 1'b0;
-            state_t::TRANSMIT_DATA_BIT : dout = data[0];
-            default                    : dout = 1'b1;
-        }
-    }
+    assign dout = case state {
+        state_t::TRANSMIT_START_BIT: 1'b0,
+        state_t::TRANSMIT_DATA_BIT : data[0],
+        default                    : 1'b1,
+    };
 
     always_ff {
         if_reset {
