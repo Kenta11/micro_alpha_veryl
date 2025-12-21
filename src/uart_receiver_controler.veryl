@@ -38,27 +38,27 @@ module uart_receiver_controler #(
         if_reset {
             dout = {1'b0 repeat WORD_WIDTH};
         } else {
-            case state {
-                state_t::RECEIVE_DATA_BIT: dout = if full_clocks ? {zeros <= (ONE_CYCLE / 2), dout[WORD_WIDTH - 1:1]} : dout;
-                default                  : dout = dout;
-            }
+            dout = case state {
+                state_t::RECEIVE_DATA_BIT: if full_clocks ? {zeros <= (ONE_CYCLE / 2), dout[WORD_WIDTH - 1:1]} : dout,
+                default                  : dout,
+            };
         }
     }
 
-    assign we = (state == state_t::WRITE_WORD);
+    assign we = state == state_t::WRITE_WORD;
 
     always_ff {
         if_reset {
             state = state_t::WAIT;
         } else {
-            case state {
-                state_t::WAIT            : state = if received_start_bit ? state_t::IGNORE_DATA_BIT : state;
-                state_t::IGNORE_DATA_BIT : state = if half_clocks ? state_t::RECEIVE_DATA_BIT : state;
-                state_t::RECEIVE_DATA_BIT: state = if received_a_word ? state_t::RECEIVE_STOP_BIT : state;
-                state_t::RECEIVE_STOP_BIT: state = if full_clocks ? (if ((zeros <= (ONE_CYCLE / 2)) && (~full)) ? state_t::WRITE_WORD : state_t::WAIT) : state;
-                state_t::WRITE_WORD      : state = state_t::WAIT;
-                default                  : state = state;
-            }
+            state = case state {
+                state_t::WAIT            : if received_start_bit ? state_t::IGNORE_DATA_BIT : state,
+                state_t::IGNORE_DATA_BIT : if half_clocks ? state_t::RECEIVE_DATA_BIT : state,
+                state_t::RECEIVE_DATA_BIT: if received_a_word ? state_t::RECEIVE_STOP_BIT : state,
+                state_t::RECEIVE_STOP_BIT: if full_clocks ? (if (zeros <= (ONE_CYCLE / 2)) && (~full) ? state_t::WRITE_WORD : state_t::WAIT) : state,
+                state_t::WRITE_WORD      : state_t::WAIT,
+                default                  : state,
+            };
         }
     }
 
@@ -66,32 +66,27 @@ module uart_receiver_controler #(
         if_reset {
             clocks = 32'h0;
         } else {
-            case state {
-                state_t::IGNORE_DATA_BIT : clocks = if half_clocks ? 32'h0 : clocks + 32'h1;
-                state_t::RECEIVE_DATA_BIT: clocks = if full_clocks ? 32'h0 : clocks + 32'h1;
-                state_t::RECEIVE_STOP_BIT: clocks = if full_clocks ? 32'h0 : clocks + 32'h1;
-                default                  : clocks = 32'h0;
-            }
+            clocks = case state {
+                state_t::IGNORE_DATA_BIT                            : if half_clocks ? 32'h0 : clocks + 32'h1,
+                state_t::RECEIVE_DATA_BIT, state_t::RECEIVE_STOP_BIT: if full_clocks ? 32'h0 : clocks + 32'h1,
+                default                                             : 32'h0,
+            };
         }
     }
 
     always_ff {
         if_reset {
             seq = {1'b1 repeat ONE_CYCLE};
-        } else if (full_clocks) {
-            seq = {1'b1 repeat ONE_CYCLE};
         } else {
-            seq = {seq[ONE_CYCLE - 2:0], din};
+            seq = if full_clocks ? {1'b1 repeat ONE_CYCLE} : {seq[ONE_CYCLE - 2:0], din};
         }
     }
 
     always_ff {
         if_reset {
             zeros = 32'h0;
-        } else if (full_clocks) {
-            zeros = 32'h0;
         } else {
-            zeros = zeros - (~seq[ONE_CYCLE - 1]) + (~din);
+            zeros = if full_clocks ? 32'h0 : zeros - (~seq[ONE_CYCLE - 1]) + (~din);
         }
     }
 
@@ -99,15 +94,15 @@ module uart_receiver_controler #(
         if_reset {
             received_bits = 4'h0;
         } else {
-            case state {
-                state_t::RECEIVE_DATA_BIT: received_bits = if full_clocks ? received_bits + 4'h1 : received_bits;
-                default                  : received_bits = 4'h0;
-            }
+            received_bits = case state {
+                state_t::RECEIVE_DATA_BIT: if full_clocks ? received_bits + 4'h1 : received_bits,
+                default                  : 4'h0,
+            };
         }
     }
 
     assign received_start_bit = case state {
-        state_t::WAIT: (zeros == (ONE_CYCLE / 2)),
+        state_t::WAIT: zeros == (ONE_CYCLE / 2),
         default      : 1'b0,
     };
 
@@ -116,6 +111,6 @@ module uart_receiver_controler #(
         default                  : 1'b0,
     };
 
-    assign half_clocks = (clocks == (ONE_CYCLE / 2));
-    assign full_clocks = (clocks == (ONE_CYCLE - 1));
+    assign half_clocks = clocks == (ONE_CYCLE / 2);
+    assign full_clocks = clocks == (ONE_CYCLE - 1);
 }

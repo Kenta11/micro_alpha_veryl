@@ -114,30 +114,24 @@ module datapath #(
     always_ff {
         if_reset {
             pc = CONSTANT_ZERO_16;
-        } else if (c_if.set_pc) {
-            pc = sbus;
         } else {
-            pc = pc;
+            pc = if c_if.set_pc ? sbus : pc;
         }
     }
 
     always_ff {
         if_reset {
             fsr = CONSTANT_ZERO_16[3:0];
-        } else if (c_if.set_fsr) {
-            fsr = c_if.flags;
         } else {
-            fsr = fsr;
+            fsr = if c_if.set_fsr ? c_if.flags : fsr;
         }
     }
 
     always_ff {
         if_reset {
             mar = ENTRY_POINT;
-        } else if (c_if.set_mar) {
-            mar = lbus;
         } else {
-            mar = mar;
+            mar = if c_if.set_mar ? lbus : mar;
         }
     }
 
@@ -145,13 +139,13 @@ module datapath #(
         if_reset {
             c_if.ir = CONSTANT_ZERO_16;
         } else {
-            case c_if.ir_source_selector {
-                ir_source_selector_t::SET_IR     : c_if.ir = lbus;
-                ir_source_selector_t::INCREASE_RA: c_if.ir = {op, rap, rb, nd};
-                ir_source_selector_t::INCREASE_RB: c_if.ir = {op, ra, rbp, nd};
-                ir_source_selector_t::DECREASE_RB: c_if.ir = {op, ra, rbm, nd};
-                default                          : c_if.ir = c_if.ir;
-            }
+            c_if.ir = case c_if.ir_source_selector {
+                ir_source_selector_t::SET_IR     : lbus,
+                ir_source_selector_t::INCREASE_RA: {op, rap, rb, nd},
+                ir_source_selector_t::INCREASE_RB: {op, ra, rbp, nd},
+                ir_source_selector_t::DECREASE_RB: {op, ra, rbm, nd},
+                default                          : c_if.ir,
+            };
         }
     }
 

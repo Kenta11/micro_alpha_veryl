@@ -218,19 +218,13 @@ module controler #(
         if_reset {
             c_if.inbus_valid = 1'b0;
         } else {
-            case phase {
+            c_if.inbus_valid = case phase {
                 phase_t::T2: case ex {
-                    ex_t::EIO: {
-                        if (c_if.ir == 16'hEC00) {
-                            c_if.inbus_valid = ~if_empty;
-                        } else {
-                            c_if.inbus_valid = c_if.inbus_valid;
-                        }
-                    }
-                    default: c_if.inbus_valid = c_if.inbus_valid;
-                }
-                default: c_if.inbus_valid = c_if.inbus_valid;
-            }
+                    ex_t::EIO: if c_if.ir == 16'hEC00 ? ~if_empty : c_if.inbus_valid,
+                    default  : c_if.inbus_valid,
+                },
+                default: c_if.inbus_valid,
+            };
         }
     }
 
@@ -261,13 +255,13 @@ module controler #(
         if_reset {
             led_hlt = 1'h0;
         } else {
-            case phase {
+            led_hlt = case phase {
                 phase_t::T5: case ex {
-                    ex_t::HLT: led_hlt = 1'h1;
-                    default  : led_hlt = 1'h0;
-                }
-                default: led_hlt = led_hlt;
-            }
+                    ex_t::HLT: 1'h1,
+                    default  : 1'h0,
+                },
+                default: led_hlt,
+            };
         }
     }
 
@@ -275,13 +269,13 @@ module controler #(
         if_reset {
             led_ov = 1'h0;
         } else {
-            case phase {
+            led_ov = case phase {
                 phase_t::T5: case ex {
-                    ex_t::OV: led_ov = 1'h1;
-                    default : led_ov = 1'h0;
-                }
-                default: led_ov = led_ov;
-            }
+                    ex_t::OV: 1'h1,
+                    default : 1'h0,
+                },
+                default: led_ov,
+            };
         }
     }
 
@@ -289,19 +283,18 @@ module controler #(
         if_reset {
             phase = phase_t::INIT;
         } else {
-            case phase {
-                phase_t::INIT: phase = phase_t::T1;
-                phase_t::T1  : phase = phase_t::T2;
-                phase_t::T2  : phase = phase_t::T3;
-                phase_t::T3  : phase = phase_t::T4;
-                phase_t::T4  : phase = phase_t::T5;
+            phase = case phase {
+                phase_t::INIT: phase_t::T1,
+                phase_t::T1  : phase_t::T2,
+                phase_t::T2  : phase_t::T3,
+                phase_t::T3  : phase_t::T4,
+                phase_t::T4  : phase_t::T5,
                 phase_t::T5  : case ex {
-                    ex_t::HLT: phase = phase_t::HLT;
-                    ex_t::OV : phase = phase_t::HLT;
-                    default  : phase = phase_t::T1;
-                }
-                default: phase = phase;
-            }
+                    ex_t::HLT, ex_t::OV: phase_t::HLT,
+                    default            : phase_t::T1,
+                },
+                default: phase,
+            };
         }
     }
 
@@ -309,21 +302,20 @@ module controler #(
         if_reset {
             cmar = ENTRY_POINT;
         } else {
-            case phase {
+            cmar = case phase {
                 phase_t::T2: case sq {
-                    sq_t::B  : cmar = {ts, lt};
-                    sq_t::BP : cmar = {ts, lt};
-                    sq_t::RTN: cmar = cmar_stack[cmar_stack_pointer - 3'h1];
-                    sq_t::BT : cmar = if test ? {cmar[11:9], lt} : (cmar + 12'h1);
-                    sq_t::BF : cmar = if test ? (cmar + 12'h1) : {cmar[11:9], lt};
-                    sq_t::IOP: cmar = {lt[7:0], c_if.ir[15:12]};
-                    sq_t::IRA: cmar = {ts[0], lt[8:2], c_if.ir[11:10], lt[1:0]};
-                    sq_t::IAB: cmar = {ts[0], lt[8:4], c_if.ir[11:8], lt[1:0]};
-                    sq_t::EI : cmar = if test ? CONSTANT_ZERO_40[11:0] : {cmar[11:9], lt};
-                    default  : cmar = cmar + 12'h1;
-                }
-                default: cmar = cmar;
-            }
+                    sq_t::B, sq_t::BP: {ts, lt},
+                    sq_t::RTN        : cmar_stack[cmar_stack_pointer - 3'h1],
+                    sq_t::BT         : if test ? {cmar[11:9], lt} : (cmar + 12'h1),
+                    sq_t::BF         : if test ? (cmar + 12'h1) : {cmar[11:9], lt},
+                    sq_t::IOP        : {lt[7:0], c_if.ir[15:12]},
+                    sq_t::IRA        : {ts[0], lt[8:2], c_if.ir[11:10], lt[1:0]},
+                    sq_t::IAB        : {ts[0], lt[8:4], c_if.ir[11:8], lt[1:0]},
+                    sq_t::EI         : if test ? CONSTANT_ZERO_40[11:0] : {cmar[11:9], lt},
+                    default          : cmar + 12'h1,
+                },
+                default: cmar,
+            };
         }
     }
 
@@ -342,11 +334,10 @@ module controler #(
                 9'h0
             };
         } else {
-            case phase {
-                phase_t::INIT: cmdr = cm_din;
-                phase_t::T5  : cmdr = cm_din;
-                default      : cmdr = cmdr;
-            }
+            cmdr = case phase {
+                phase_t::INIT, phase_t::T5: cm_din,
+                default                   : cmdr,
+            };
         }
     }
 
@@ -356,13 +347,13 @@ module controler #(
                 cmar_stack[i] = CONSTANT_ZERO_40[11:0];
             }
         } else {
-            case phase {
+            cmar_stack[cmar_stack_pointer] = case phase {
                 phase_t::T2: case sq {
-                    sq_t::BP: cmar_stack[cmar_stack_pointer] = cmar;
-                    default : cmar_stack[cmar_stack_pointer] = cmar_stack[cmar_stack_pointer];
-                }
-                default: cmar_stack[cmar_stack_pointer] = cmar_stack[cmar_stack_pointer];
-            }
+                    sq_t::BP: cmar,
+                    default : cmar_stack[cmar_stack_pointer],
+                },
+                default: cmar_stack[cmar_stack_pointer],
+            };
         }
     }
 
@@ -370,14 +361,14 @@ module controler #(
         if_reset {
             cmar_stack_pointer = 3'h0;
         } else {
-            case phase {
+            cmar_stack_pointer = case phase {
                 phase_t::T2: case sq {
-                    sq_t::BP : cmar_stack_pointer = cmar_stack_pointer + 3'h1;
-                    sq_t::RTN: cmar_stack_pointer = cmar_stack_pointer - 3'h1;
-                    default  : cmar_stack_pointer = cmar_stack_pointer;
-                }
-                default: cmar_stack_pointer = cmar_stack_pointer;
-            }
+                    sq_t::BP : cmar_stack_pointer + 3'h1,
+                    sq_t::RTN: cmar_stack_pointer - 3'h1,
+                    default  : cmar_stack_pointer,
+                },
+                default: cmar_stack_pointer,
+            };
         }
     }
 
@@ -385,10 +376,10 @@ module controler #(
         if_reset {
             mm_write_reservation = 1'h0;
         } else {
-            case phase {
-                phase_t::T2: mm_write_reservation = mm == mm_t::WM;
-                default    : mm_write_reservation = mm_write_reservation;
-            }
+            mm_write_reservation = case phase {
+                phase_t::T2: mm == mm_t::WM,
+                default    : mm_write_reservation,
+            };
         }
     }
 
@@ -396,14 +387,14 @@ module controler #(
         if_reset {
             c = CONSTANT_ZERO_40[7:0];
         } else {
-            case phase {
+            c = case phase {
                 phase_t::T5: case ex {
-                    ex_t::CM1: c = c - 8'h1;
-                    ex_t::SC : c = c_if.rbus_lower;
-                    default  : c = c;
-                }
-                default: c = c;
-            }
+                    ex_t::CM1: c - 8'h1,
+                    ex_t::SC : c_if.rbus_lower,
+                    default  : c,
+                },
+                default: c,
+            };
         }
     }
 
@@ -411,38 +402,26 @@ module controler #(
         if_reset {
             flags = 6'h0;
         } else {
-            case phase {
-                phase_t::T5: flags = {flag_zer, flag_neg, flag_cry, flag_ov, flag_t};
-                default    : flags = flags;
-            }
+            flags = case phase {
+                phase_t::T5: {flag_zer, flag_neg, flag_cry, flag_ov, flag_t},
+                default    : flags,
+            };
         }
     }
 
     assign flag_zer = case al {
-        alu_operation_t::ADD: c_if.abus == CONSTANT_ZERO_40[15:0],
-        alu_operation_t::SUB: c_if.abus == CONSTANT_ZERO_40[15:0],
-        alu_operation_t::AND: c_if.abus == CONSTANT_ZERO_40[15:0],
-        alu_operation_t::OR : c_if.abus == CONSTANT_ZERO_40[15:0],
-        default             : 1'h0,
+        alu_operation_t::ADD, alu_operation_t::SUB, alu_operation_t::AND, alu_operation_t::OR: c_if.abus == CONSTANT_ZERO_40[15:0],
+        default                                                                              : 1'h0,
     };
 
     assign flag_neg = case al {
-        alu_operation_t::ADD: c_if.abus[15],
-        alu_operation_t::SUB: c_if.abus[15],
-        default             : 1'h0,
+        alu_operation_t::ADD, alu_operation_t::SUB: c_if.abus[15],
+        default                                   : 1'h0,
     };
 
     assign flag_cry = case c_if.shifter_operation {
-        shifter_operation_t::LEFT_LOGICALLY      : c_if.shifter_cout,
-        shifter_operation_t::RIGHT_LOGICALLY     : c_if.shifter_cout,
-        shifter_operation_t::LEFT_ARITHMETICALLY : c_if.shifter_cout,
-        shifter_operation_t::RIGHT_ARITHMETICALLY: c_if.shifter_cout,
-        shifter_operation_t::EXTENSION           : c_if.shifter_cout,
-        default                                  : case al {
-            alu_operation_t::ADD: c_if.alu_cout,
-            alu_operation_t::SUB: c_if.alu_cout,
-            default             : c_if.alu_cout,
-        },
+        shifter_operation_t::LEFT_LOGICALLY, shifter_operation_t::RIGHT_LOGICALLY, shifter_operation_t::LEFT_ARITHMETICALLY, shifter_operation_t::RIGHT_ARITHMETICALLY, shifter_operation_t::EXTENSION: c_if.shifter_cout,
+        default                                                                                                                                                                                       : c_if.alu_cout,
     };
 
     assign flag_ov = case c_if.shifter_operation {
