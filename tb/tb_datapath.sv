@@ -15,9 +15,9 @@ module tb_datapath;
   logic                  clk;
   logic                  rst;
   micro_alpha_veryl_control_if      c_if();
-  MICRO1_MACHINE_ADDRESS mm_addr;
-  MICRO1_MACHINE_WORD    mm_din;
-  MICRO1_MACHINE_WORD    mm_dout;
+  micro1_machine_address_t mm_addr;
+  micro1_machine_word_t    mm_din;
+  micro1_machine_word_t    mm_dout;
   logic [7:0]            if_dout;
   logic [7:0]            of_din;
 

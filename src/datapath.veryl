@@ -1,14 +1,14 @@
 module datapath #(
     param ENTRY_POINT: logic<16> = 16'h0140,
 ) (
-    clk    : input   clock                    ,
-    rst    : input   reset                    ,
-    c_if   : modport control_if::datapath     ,
-    mm_addr: output  MICRO1_MACHINE_ADDRESS   ,
-    mm_din : input   MICRO1_MACHINE_WORD      ,
-    mm_dout: output  MICRO1_MACHINE_WORD      ,
-    if_dout: input   logic                 <8>,
-    of_din : output  logic                 <8>,
+    clk    : input   clock                      ,
+    rst    : input   reset                      ,
+    c_if   : modport control_if::datapath       ,
+    mm_addr: output  micro1_machine_address_t   ,
+    mm_din : input   micro1_machine_word_t      ,
+    mm_dout: output  micro1_machine_word_t      ,
+    if_dout: input   logic                   <8>,
+    of_din : output  logic                   <8>,
 ) {
     // imports
     import alu_pkg::*;
@@ -23,21 +23,21 @@ module datapath #(
     const CONSTANT_ZERO_16: logic<16> = 16'h0;
 
     // registers and wires
-    var gpr  : MICRO1_MACHINE_WORD     [8];
-    var pc   : MICRO1_MACHINE_WORD        ;
-    var fsr  : logic              <4>     ;
-    var mar  : MICRO1_MACHINE_WORD        ;
-    var op   : logic              <4>     ;
-    var ra   : logic              <2>     ;
-    var rb   : logic              <2>     ;
-    var nd   : logic              <8>     ;
-    var rap  : logic              <2>     ;
-    var rbp  : logic              <2>     ;
-    var rbm  : logic              <2>     ;
-    var lbus : logic              <16>    ;
-    var rbus : logic              <16>    ;
-    var sbus : logic              <16>    ;
-    var inbus: MICRO1_MACHINE_WORD        ;
+    var gpr  : micro1_machine_word_t     [8];
+    var pc   : micro1_machine_word_t        ;
+    var fsr  : logic                <4>     ;
+    var mar  : micro1_machine_word_t        ;
+    var op   : logic                <4>     ;
+    var ra   : logic                <2>     ;
+    var rb   : logic                <2>     ;
+    var nd   : logic                <8>     ;
+    var rap  : logic                <2>     ;
+    var rbp  : logic                <2>     ;
+    var rbm  : logic                <2>     ;
+    var lbus : logic                <16>    ;
+    var rbus : logic                <16>    ;
+    var sbus : logic                <16>    ;
+    var inbus: micro1_machine_word_t        ;
 
     // submodules
     inst mux_for_lbus: mux #(

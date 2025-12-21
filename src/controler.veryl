@@ -1,18 +1,18 @@
 module controler #(
     param ENTRY_POINT: logic<12> = 0,
 ) (
-    clk     : input   clock                 ,
-    rst     : input   reset                 ,
-    c_if    : modport control_if::controler ,
-    cm_addr : output  MICRO1_CONTROL_ADDRESS,
-    cm_din  : input   MICRO1_CONTROL_WORD   ,
-    mm_we   : output  logic                 ,
-    if_empty: input   logic                 ,
-    if_re   : output  logic                 ,
-    of_full : input   logic                 ,
-    of_we   : output  logic                 ,
-    led_hlt : output  logic                 ,
-    led_ov  : output  logic                 ,
+    clk     : input   clock                   ,
+    rst     : input   reset                   ,
+    c_if    : modport control_if::controler   ,
+    cm_addr : output  micro1_control_address_t,
+    cm_din  : input   micro1_control_word_t   ,
+    mm_we   : output  logic                   ,
+    if_empty: input   logic                   ,
+    if_re   : output  logic                   ,
+    of_full : input   logic                   ,
+    of_we   : output  logic                   ,
+    led_hlt : output  logic                   ,
+    led_ov  : output  logic                   ,
 ) {
     // imports
     import alu_pkg::*;
@@ -103,31 +103,31 @@ module controler #(
     const FLAG_INDEX_T    : logic<3>  = 3'h0;
 
     // registers and wires
-    var phase               : phase_t                  ;
-    var cmar                : MICRO1_CONTROL_ADDRESS   ;
-    var cmdr                : MICRO1_CONTROL_WORD      ;
-    var cmar_stack          : MICRO1_CONTROL_WORD   <8>;
-    var cmar_stack_pointer  : logic                 <3>;
-    var mm_write_reservation: logic                    ;
-    var c                   : logic                 <8>;
-    var flags               : logic                 <6>;
-    var flag_zer            : logic                    ;
-    var flag_neg            : logic                    ;
-    var flag_cry            : logic                    ;
-    var flag_ov             : logic                    ;
-    var flag_cz             : logic                    ;
-    var flag_t              : logic                    ;
-    var test                : logic                    ;
-    var lb                  : lbus_source_selector_t   ;
-    var rb                  : rbus_source_selector_t   ;
-    var al                  : alu_operation_t          ;
-    var sh                  : shifter_operation_t      ;
-    var sb                  : sb_t                     ;
-    var mm                  : mm_t                     ;
-    var sq                  : sq_t                     ;
-    var ts                  : logic                 <3>;
-    var ex                  : ex_t                     ;
-    var lt                  : logic                 <9>;
+    var phase               : phase_t                    ;
+    var cmar                : micro1_control_address_t   ;
+    var cmdr                : micro1_control_word_t      ;
+    var cmar_stack          : micro1_control_word_t   <8>;
+    var cmar_stack_pointer  : logic                   <3>;
+    var mm_write_reservation: logic                      ;
+    var c                   : logic                   <8>;
+    var flags               : logic                   <6>;
+    var flag_zer            : logic                      ;
+    var flag_neg            : logic                      ;
+    var flag_cry            : logic                      ;
+    var flag_ov             : logic                      ;
+    var flag_cz             : logic                      ;
+    var flag_t              : logic                      ;
+    var test                : logic                      ;
+    var lb                  : lbus_source_selector_t     ;
+    var rb                  : rbus_source_selector_t     ;
+    var al                  : alu_operation_t            ;
+    var sh                  : shifter_operation_t        ;
+    var sb                  : sb_t                       ;
+    var mm                  : mm_t                       ;
+    var sq                  : sq_t                       ;
+    var ts                  : logic                   <3>;
+    var ex                  : ex_t                       ;
+    var lt                  : logic                   <9>;
 
     // logics
     assign c_if.lbus_source_selector = lb;

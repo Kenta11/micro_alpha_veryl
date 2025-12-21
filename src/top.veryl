@@ -14,18 +14,18 @@ module top (
     const CLOCK_FREQUENCY: logic<32> = 32'd100_000_000;
 
     // registers and wires
-    var cm_addr : MICRO1_CONTROL_ADDRESS   ;
-    var cm_data : MICRO1_CONTROL_WORD      ;
-    var mm_we   : logic                    ;
-    var mm_addr : MICRO1_MACHINE_ADDRESS   ;
-    var mm_din  : MICRO1_MACHINE_WORD      ;
-    var mm_dout : MICRO1_MACHINE_WORD      ;
-    var if_dout : logic                 <8>;
-    var if_empty: logic                    ;
-    var if_re   : logic                    ;
-    var of_din  : logic                 <8>;
-    var of_full : logic                    ;
-    var of_we   : logic                    ;
+    var cm_addr : micro1_control_address_t   ;
+    var cm_data : micro1_control_word_t      ;
+    var mm_we   : logic                      ;
+    var mm_addr : micro1_machine_address_t   ;
+    var mm_din  : micro1_machine_word_t      ;
+    var mm_dout : micro1_machine_word_t      ;
+    var if_dout : logic                   <8>;
+    var if_empty: logic                      ;
+    var if_re   : logic                      ;
+    var of_din  : logic                   <8>;
+    var of_full : logic                      ;
+    var of_we   : logic                      ;
 
     // modules
     inst cpu: micro_alpha (

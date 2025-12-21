@@ -1,10 +1,10 @@
 module alu (
-    operation: input  alu_operation_t    ,
-    left     : input  MICRO1_MACHINE_WORD,
-    right    : input  MICRO1_MACHINE_WORD,
-    cin      : input  logic              ,
-    result   : output MICRO1_MACHINE_WORD,
-    cout     : output logic              ,
+    operation: input  alu_operation_t      ,
+    left     : input  micro1_machine_word_t,
+    right    : input  micro1_machine_word_t,
+    cin      : input  logic                ,
+    result   : output micro1_machine_word_t,
+    cout     : output logic                ,
 ) {
     // imports
     import alu_pkg::*;

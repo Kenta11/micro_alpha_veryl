@@ -8,9 +8,9 @@ module tb_shifter;
   localparam [31:0] CLOCK_PERIOD = 32'd10;
 
   shifter_operation_t operation;
-  MICRO1_MACHINE_WORD in;
+  micro1_machine_word_t in;
   logic               cin;
-  MICRO1_MACHINE_WORD out;
+  micro1_machine_word_t out;
   wire                cout;
 
   `TEST_SUITE begin

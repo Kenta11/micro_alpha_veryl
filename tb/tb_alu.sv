@@ -8,10 +8,10 @@ module tb_alu;
   localparam [31:0] CLOCK_PERIOD = 32'd10;
 
   alu_operation_t     operation;
-  MICRO1_MACHINE_WORD left;
-  MICRO1_MACHINE_WORD right;
+  micro1_machine_word_t left;
+  micro1_machine_word_t right;
   logic               cin;
-  MICRO1_MACHINE_WORD result;
+  micro1_machine_word_t result;
   wire                cout;
 
   `TEST_SUITE begin

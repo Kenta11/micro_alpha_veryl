@@ -17,17 +17,17 @@ interface control_if {
     var set_mar                 : logic                        ;
     var set_fsr                 : logic                        ;
     var set_pc                  : logic                        ;
-    var literal                 : MICRO1_MACHINE_WORD          ;
+    var literal                 : micro1_machine_word_t        ;
     var flags                   : logic                     <4>;
     var cin                     : logic                        ;
     var inbus_valid             : logic                        ;
-    var ir                      : MICRO1_MACHINE_WORD          ;
+    var ir                      : micro1_machine_word_t        ;
     var alu_cout                : logic                        ;
     var shifter_cout            : logic                        ;
     var lbus_msb                : logic                        ;
     var rbus_msb                : logic                        ;
     var rbus_lower              : logic                     <8>;
-    var abus                    : MICRO1_MACHINE_WORD          ;
+    var abus                    : micro1_machine_word_t        ;
     var sbus_msb                : logic                        ;
 
     modport controler {

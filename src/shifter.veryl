@@ -1,9 +1,9 @@
 module shifter (
-    operation: input  shifter_operation_t,
-    r#in     : input  MICRO1_MACHINE_WORD,
-    cin      : input  logic              ,
-    out      : output MICRO1_MACHINE_WORD,
-    cout     : output logic              ,
+    operation: input  shifter_operation_t  ,
+    r#in     : input  micro1_machine_word_t,
+    cin      : input  logic                ,
+    out      : output micro1_machine_word_t,
+    cout     : output logic                ,
 ) {
     // imports
     import machine_data_pkg::*;
