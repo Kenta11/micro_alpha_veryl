@@ -1,6 +1,3 @@
-import machine_data_pkg::*;
-import control_data_pkg::*;
-
 module micro_alpha (
     clk     : input  clock                    ,
     rst     : input  reset                    ,
@@ -19,6 +16,10 @@ module micro_alpha (
     led_hlt : output logic                    ,
     led_ov  : output logic                    ,
 ) {
+    // imports
+    import machine_data_pkg::*;
+    import control_data_pkg::*;
+
     // registers and wires
     inst c_if: control_if;
 

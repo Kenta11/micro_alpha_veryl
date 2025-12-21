@@ -1,6 +1,3 @@
-import alu_pkg::*;
-import machine_data_pkg::*;
-
 module alu (
     operation: input  ALU_OPERATION      ,
     left     : input  MICRO1_MACHINE_WORD,
@@ -9,6 +6,10 @@ module alu (
     result   : output MICRO1_MACHINE_WORD,
     cout     : output logic              ,
 ) {
+    // imports
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
     assign {cout, result} = case operation {
         ALU_OPERATION::ADD: left + right + cin,
         ALU_OPERATION::SUB: left - right - cin,

@@ -1,6 +1,3 @@
-import machine_data_pkg::*;
-import shifter_pkg::*;
-
 module shifter (
     operation: input  SHIFTER_OPERATION  ,
     r#in     : input  MICRO1_MACHINE_WORD,
@@ -8,6 +5,10 @@ module shifter (
     out      : output MICRO1_MACHINE_WORD,
     cout     : output logic              ,
 ) {
+    // imports
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
     assign {cout, out} = case operation {
         SHIFTER_OPERATION::LEFT_LOGICALLY      : {r#in, cin},
         SHIFTER_OPERATION::RIGHT_LOGICALLY     : {r#in[0], cin, r#in[15:1]},
