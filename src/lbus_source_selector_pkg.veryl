@@ -1,4 +1,4 @@
-package package_lbus_source_selector {
+package lbus_source_selector_pkg {
     enum LBUS_SOURCE_SELECTOR {
         R0 = 4'b0000,
         R1 = 4'b0001,

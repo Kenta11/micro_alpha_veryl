@@ -2,7 +2,7 @@
 `timescale 1ns/1ns
 
 module tb_mux;
-  import micro_alpha_veryl_package_alu::*;
+  import micro_alpha_veryl_alu_pkg::*;
 
   localparam [31:0] CLOCK_PERIOD = 32'd10;
 

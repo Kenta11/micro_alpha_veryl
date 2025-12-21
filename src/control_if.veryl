@@ -1,12 +1,12 @@
-import package_alu::*;
-import package_gpr_destination_selector::*;
-import package_ir_source_selector::*;
-import package_lbus_source_selector::*;
-import package_machine_data::*;
-import package_rbus_source_selector::*;
-import package_shifter::*;
+import alu_pkg::*;
+import gpr_destination_selector_pkg::*;
+import ir_source_selector_pkg::*;
+import lbus_source_selector_pkg::*;
+import machine_data_pkg::*;
+import rbus_source_selector_pkg::*;
+import shifter_pkg::*;
 
-interface control_interface {
+interface control_if {
     var lbus_source_selector    : LBUS_SOURCE_SELECTOR       ;
     var rbus_source_selector    : RBUS_SOURCE_SELECTOR       ;
     var alu_operation           : ALU_OPERATION              ;

@@ -1,4 +1,4 @@
-package package_gpr_destination_selector {
+package gpr_destination_selector_pkg {
     enum GPR_DESTINATION_SELECTOR {
         GPR0 = 4'b0000,
         GPR1 = 4'b0001,

@@ -1,4 +1,4 @@
-package package_control_data {
+package control_data_pkg {
     type MICRO1_CONTROL_WORD    = logic<40>;
     type MICRO1_CONTROL_ADDRESS = logic<12>;
 }

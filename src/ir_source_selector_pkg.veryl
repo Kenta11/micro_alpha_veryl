@@ -1,4 +1,4 @@
-package package_ir_source_selector {
+package ir_source_selector_pkg {
     enum IR_SOURCE_SELECTOR {
         NO_OPERATION = 3'b000,
         SET_IR = 3'b001,

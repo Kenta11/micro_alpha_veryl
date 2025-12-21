@@ -2,8 +2,8 @@
 `timescale 1ns/1ns
 
 module tb_shifter;
-  import micro_alpha_veryl_package_machine_data::*;
-  import micro_alpha_veryl_package_shifter::*;
+  import micro_alpha_veryl_machine_data_pkg::*;
+  import micro_alpha_veryl_shifter_pkg::*;
 
   localparam [31:0] CLOCK_PERIOD = 32'd10;
 

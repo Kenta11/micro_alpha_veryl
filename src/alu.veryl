@@ -1,5 +1,5 @@
-import package_alu::*;
-import package_machine_data::*;
+import alu_pkg::*;
+import machine_data_pkg::*;
 
 module alu (
     operation: input  ALU_OPERATION      ,

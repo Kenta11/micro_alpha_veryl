@@ -1,4 +1,4 @@
-package package_alu {
+package alu_pkg {
     enum ALU_OPERATION {
         ADD = 3'b000,
         SUB = 3'b001,

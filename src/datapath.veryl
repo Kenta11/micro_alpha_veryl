@@ -1,22 +1,22 @@
-import package_alu::*;
-import package_machine_data::*;
-import package_gpr_destination_selector::*;
-import package_ir_source_selector::*;
-import package_lbus_source_selector::*;
-import package_rbus_source_selector::*;
-import package_shifter::*;
+import alu_pkg::*;
+import machine_data_pkg::*;
+import gpr_destination_selector_pkg::*;
+import ir_source_selector_pkg::*;
+import lbus_source_selector_pkg::*;
+import rbus_source_selector_pkg::*;
+import shifter_pkg::*;
 
 module datapath #(
     param ENTRY_POINT: logic<16> = 16'h0140,
 ) (
-    clk    : input   clock                         ,
-    rst    : input   reset                         ,
-    c_inf  : modport control_interface::datapath   ,
-    mm_addr: output  MICRO1_MACHINE_ADDRESS        ,
-    mm_din : input   MICRO1_MACHINE_WORD           ,
-    mm_dout: output  MICRO1_MACHINE_WORD           ,
-    if_dout: input   logic                      <8>,
-    of_din : output  logic                      <8>,
+    clk    : input   clock                    ,
+    rst    : input   reset                    ,
+    c_if   : modport control_if::datapath     ,
+    mm_addr: output  MICRO1_MACHINE_ADDRESS   ,
+    mm_din : input   MICRO1_MACHINE_WORD      ,
+    mm_dout: output  MICRO1_MACHINE_WORD      ,
+    if_dout: input   logic                 <8>,
+    of_din : output  logic                 <8>,
 ) {
     // constant value
     const CONSTANT_ZERO_16: logic<16> = 16'h0;
@@ -57,14 +57,14 @@ module datapath #(
             pc,
             inbus,
             mm_din,
-            c_inf.ir,
+            c_if.ir,
             {
                 CONSTANT_ZERO_16[11:0], fsr
             },
             CONSTANT_ZERO_16
         },
-        selector: c_inf.lbus_source_selector,
-        dout    : lbus                      ,
+        selector: c_if.lbus_source_selector,
+        dout    : lbus                     ,
     );
 
     inst mux_for_rbus: mux #(
@@ -83,40 +83,40 @@ module datapath #(
             gpr[ra],
             gpr[rap],
             {
-                7'h0, c_inf.literal[8:0]
+                7'h0, c_if.literal[8:0]
             },
-            c_inf.literal,
+            c_if.literal,
             CONSTANT_ZERO_16,
             CONSTANT_ZERO_16,
             CONSTANT_ZERO_16,
             CONSTANT_ZERO_16
         },
-        selector: c_inf.rbus_source_selector,
-        dout    : rbus                      ,
+        selector: c_if.rbus_source_selector,
+        dout    : rbus                     ,
     );
 
     inst alu0: alu (
-        operation: c_inf.alu_operation,
-        left     : lbus               ,
-        right    : rbus               ,
-        cin      : c_inf.cin          ,
-        result   : c_inf.abus         ,
-        cout     : c_inf.alu_cout     ,
+        operation: c_if.alu_operation,
+        left     : lbus              ,
+        right    : rbus              ,
+        cin      : c_if.cin          ,
+        result   : c_if.abus         ,
+        cout     : c_if.alu_cout     ,
     );
 
     inst shifter0: shifter (
-        operation: c_inf.shifter_operation,
-        r#in     : c_inf.abus             ,
-        cin      : c_inf.cin              ,
-        out      : sbus                   ,
-        cout     : c_inf.shifter_cout     ,
+        operation: c_if.shifter_operation,
+        r#in     : c_if.abus             ,
+        cin      : c_if.cin              ,
+        out      : sbus                  ,
+        cout     : c_if.shifter_cout     ,
     );
 
     // logics
-    assign c_inf.lbus_msb   = lbus[15];
-    assign c_inf.rbus_msb   = rbus[15];
-    assign c_inf.rbus_lower = rbus[7:0];
-    assign c_inf.sbus_msb   = sbus[15];
+    assign c_if.lbus_msb   = lbus[15];
+    assign c_if.rbus_msb   = rbus[15];
+    assign c_if.rbus_lower = rbus[7:0];
+    assign c_if.sbus_msb   = sbus[15];
 
     always_ff {
         if_reset {
@@ -124,7 +124,7 @@ module datapath #(
                 gpr[i] = CONSTANT_ZERO_16;
             }
         } else {
-            case c_inf.gpr_destination_selector {
+            case c_if.gpr_destination_selector {
                 GPR_DESTINATION_SELECTOR::GPR0: gpr[0]   = sbus;
                 GPR_DESTINATION_SELECTOR::GPR1: gpr[1]   = sbus;
                 GPR_DESTINATION_SELECTOR::GPR2: gpr[2]   = sbus;
@@ -145,7 +145,7 @@ module datapath #(
     always_ff {
         if_reset {
             pc = CONSTANT_ZERO_16;
-        } else if (c_inf.set_pc) {
+        } else if (c_if.set_pc) {
             pc = sbus;
         } else {
             pc = pc;
@@ -155,8 +155,8 @@ module datapath #(
     always_ff {
         if_reset {
             fsr = CONSTANT_ZERO_16[3:0];
-        } else if (c_inf.set_fsr) {
-            fsr = c_inf.flags;
+        } else if (c_if.set_fsr) {
+            fsr = c_if.flags;
         } else {
             fsr = fsr;
         }
@@ -165,7 +165,7 @@ module datapath #(
     always_ff {
         if_reset {
             mar = ENTRY_POINT;
-        } else if (c_inf.set_mar) {
+        } else if (c_if.set_mar) {
             mar = lbus;
         } else {
             mar = mar;
@@ -174,14 +174,14 @@ module datapath #(
 
     always_ff {
         if_reset {
-            c_inf.ir = CONSTANT_ZERO_16;
+            c_if.ir = CONSTANT_ZERO_16;
         } else {
-            case c_inf.ir_source_selector {
-                IR_SOURCE_SELECTOR::SET_IR     : c_inf.ir = lbus;
-                IR_SOURCE_SELECTOR::INCREASE_RA: c_inf.ir = {op, rap, rb, nd};
-                IR_SOURCE_SELECTOR::INCREASE_RB: c_inf.ir = {op, ra, rbp, nd};
-                IR_SOURCE_SELECTOR::DECREASE_RB: c_inf.ir = {op, ra, rbm, nd};
-                default                        : c_inf.ir = c_inf.ir;
+            case c_if.ir_source_selector {
+                IR_SOURCE_SELECTOR::SET_IR     : c_if.ir = lbus;
+                IR_SOURCE_SELECTOR::INCREASE_RA: c_if.ir = {op, rap, rb, nd};
+                IR_SOURCE_SELECTOR::INCREASE_RB: c_if.ir = {op, ra, rbp, nd};
+                IR_SOURCE_SELECTOR::DECREASE_RB: c_if.ir = {op, ra, rbm, nd};
+                default                        : c_if.ir = c_if.ir;
             }
         }
     }
@@ -189,13 +189,13 @@ module datapath #(
     assign mm_addr = mar;
     assign mm_dout = lbus;
     assign of_din  = lbus[7:0];
-    assign {op, ra, rb, nd} = c_inf.ir;
-    assign rap = c_inf.ir[11:10] + 2'b1;
-    assign rbp = c_inf.ir[9:8] + 2'b1;
-    assign rbm = c_inf.ir[9:8] - 2'b1;
+    assign {op, ra, rb, nd} = c_if.ir;
+    assign rap = c_if.ir[11:10] + 2'b1;
+    assign rbp = c_if.ir[9:8] + 2'b1;
+    assign rbm = c_if.ir[9:8] - 2'b1;
 
     always_comb {
-        if (c_inf.inbus_valid) {
+        if (c_if.inbus_valid) {
             inbus = {CONSTANT_ZERO_16[7:0], if_dout};
         } else {
             inbus = CONSTANT_ZERO_16;

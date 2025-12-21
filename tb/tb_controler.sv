@@ -2,13 +2,13 @@
 `timescale 1ns/1ns
 
 module tb_control;
-  import micro_alpha_veryl_package_alu::*;
-  import micro_alpha_veryl_package_control_data::*;
-  import micro_alpha_veryl_package_gpr_destination_selector::*;
-  import micro_alpha_veryl_package_ir_source_selector::*;
-  import micro_alpha_veryl_package_lbus_source_selector::*;
-  import micro_alpha_veryl_package_rbus_source_selector::*;
-  import micro_alpha_veryl_package_shifter::*;
+  import micro_alpha_veryl_alu_pkg::*;
+  import micro_alpha_veryl_control_data_pkg::*;
+  import micro_alpha_veryl_gpr_destination_selector_pkg::*;
+  import micro_alpha_veryl_ir_source_selector_pkg::*;
+  import micro_alpha_veryl_lbus_source_selector_pkg::*;
+  import micro_alpha_veryl_rbus_source_selector_pkg::*;
+  import micro_alpha_veryl_shifter_pkg::*;
 
   localparam [31:0] CLOCK_PERIOD = 32'd10;
 

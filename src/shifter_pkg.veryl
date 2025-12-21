@@ -1,4 +1,4 @@
-package package_shifter {
+package shifter_pkg {
     enum SHIFTER_OPERATION {
         LEFT_LOGICALLY = 3'b000,
         RIGHT_LOGICALLY = 3'b001,

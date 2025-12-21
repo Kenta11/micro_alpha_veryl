@@ -1,4 +1,4 @@
-package package_rbus_source_selector {
+package rbus_source_selector_pkg {
     enum RBUS_SOURCE_SELECTOR {
         R0 = 4'b0000,
         R1 = 4'b0001,

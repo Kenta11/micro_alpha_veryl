@@ -1,5 +1,5 @@
-import package_machine_data::*;
-import package_shifter::*;
+import machine_data_pkg::*;
+import shifter_pkg::*;
 
 module shifter (
     operation: input  SHIFTER_OPERATION  ,

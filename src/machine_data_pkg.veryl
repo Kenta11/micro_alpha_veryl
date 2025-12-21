@@ -1,4 +1,4 @@
-package package_machine_data {
+package machine_data_pkg {
     type MICRO1_MACHINE_WORD    = logic<16>;
     type MICRO1_MACHINE_ADDRESS = logic<16>;
 }

@@ -1,5 +1,5 @@
-import package_machine_data::*;
-import package_control_data::*;
+import machine_data_pkg::*;
+import control_data_pkg::*;
 
 module top (
     clk_in : input  clock,

@@ -2,18 +2,18 @@ SCRIPT = fpga/arty-a7-100/create_project.tcl # Arty A7-100
 # SCRIPT = fpga/basys-3/create_project.tcl # Basys 3
 
 SRCS = alu.sv \
-       control_interface.sv \
+       control_if.sv \
        controler.sv \
        datapath.sv \
        mux.sv \
-       package_alu.sv \
-       package_control_data.sv \
-       package_gpr_destination_selector.sv \
-       package_ir_source_selector.sv \
-       package_lbus_source_selector.sv \
-       package_machine_data.sv \
-       package_rbus_source_selector.sv \
-       package_shifter.sv \
+       alu_pkg.sv \
+       control_data_pkg.sv \
+       gpr_destination_selector_pkg.sv \
+       ir_source_selector_pkg.sv \
+       lbus_source_selector_pkg.sv \
+       machine_data_pkg.sv \
+       rbus_source_selector_pkg.sv \
+       shifter_pkg.sv \
        shifter.sv
 TESTS = tb_alu.sv \
         tb_controler.sv \

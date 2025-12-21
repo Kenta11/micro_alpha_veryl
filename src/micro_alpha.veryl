@@ -1,5 +1,5 @@
-import package_machine_data::*;
-import package_control_data::*;
+import machine_data_pkg::*;
+import control_data_pkg::*;
 
 module micro_alpha (
     clk     : input  clock                    ,
@@ -20,7 +20,7 @@ module micro_alpha (
     led_ov  : output logic                    ,
 ) {
     // registers and wires
-    inst c_inf: control_interface;
+    inst c_if: control_if;
 
     // modules
     inst controler0: controler #(
@@ -28,7 +28,7 @@ module micro_alpha (
     ) (
         clk     : clk     ,
         rst     : rst     ,
-        c_inf   : c_inf   ,
+        c_if    : c_if    ,
         cm_addr : cm_addr ,
         cm_din  : cm_data ,
         mm_we   : mm_we   ,
@@ -43,7 +43,7 @@ module micro_alpha (
     inst datapath0: datapath (
         clk    : clk    ,
         rst    : rst    ,
-        c_inf  : c_inf  ,
+        c_if   : c_if   ,
         mm_addr: mm_addr,
         mm_din : mm_din ,
         mm_dout: mm_dout,
