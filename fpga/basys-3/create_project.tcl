@@ -11,20 +11,21 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
   create_fileset -srcset sources_1
 }
 add_files [list \
-  [file normalize "${project_root}/../../target/package_alu.sv"]\
-  [file normalize "${project_root}/../../target/package_machine_data.sv"]\
+  [file normalize "${project_root}/../../target/alu_pkg.sv"]\
+  [file normalize "${project_root}/../../target/machine_data_pkg.sv"]\
   [file normalize "${project_root}/../../target/alu.sv"]\
-  [file normalize "${project_root}/../../target/package_gpr_destination_selector.sv"]\
-  [file normalize "${project_root}/../../target/package_ir_source_selector.sv"]\
-  [file normalize "${project_root}/../../target/package_lbus_source_selector.sv"]\
-  [file normalize "${project_root}/../../target/package_rbus_source_selector.sv"]\
-  [file normalize "${project_root}/../../target/package_shifter.sv"]\
-  [file normalize "${project_root}/../../target/control_interface.sv"]\
-  [file normalize "${project_root}/../../target/package_control_data.sv"]\
+  [file normalize "${project_root}/../../target/gpr_destination_selector_pkg.sv"]\
+  [file normalize "${project_root}/../../target/ir_source_selector_pkg.sv"]\
+  [file normalize "${project_root}/../../target/lbus_source_selector_pkg.sv"]\
+  [file normalize "${project_root}/../../target/rbus_source_selector_pkg.sv"]\
+  [file normalize "${project_root}/../../target/shifter_pkg.sv"]\
+  [file normalize "${project_root}/../../target/control_if.sv"]\
+  [file normalize "${project_root}/../../target/control_data_pkg.sv"]\
   [file normalize "${project_root}/../../target/controler.sv"]\
   [file normalize "${project_root}/../../target/datapath.sv"]\
   [file normalize "${project_root}/../../target/micro_alpha.sv"]\
-  [file normalize "${project_root}/../../target/mux.sv"]\
+  [file normalize "${project_root}/../../dependencies/std/selector/mux.sv"]\
+  [file normalize "${project_root}/../../dependencies/std/selector/selector_pkg.sv"]\
   [file normalize "${project_root}/../../target/shifter.sv"]\
   [file normalize "${project_root}/../../target/uart_receiver.sv"]\
   [file normalize "${project_root}/../../target/uart_receiver_controler.sv"]\
