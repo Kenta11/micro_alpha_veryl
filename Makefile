@@ -5,7 +5,6 @@ SRCS = alu.sv \
        control_if.sv \
        controler.sv \
        datapath.sv \
-       mux.sv \
        alu_pkg.sv \
        control_data_pkg.sv \
        gpr_destination_selector_pkg.sv \
@@ -18,7 +17,6 @@ SRCS = alu.sv \
 TESTS = tb_alu.sv \
         tb_controler.sv \
         tb_datapath.sv \
-        tb_mux.sv \
         tb_shifter.sv
 
 .PHONY: all test clean
@@ -30,7 +28,7 @@ vivado: $(SCRIPT) $(addprefix target/, $(SRCS))
 
 test: vunit_out
 
-vunit_out: script/unittest.py $(addprefix target/, $(SRCS)) $(addprefix tb/, $(TESTS))
+vunit_out: script/unittest.py $(addprefix target/, $(SRCS)) $(addprefix tb/, $(TESTS)) dependencies/std/selector/mux.sv
 	python script/unittest.py
 
 clean:

@@ -11,6 +11,8 @@ module datapath #(
     of_din : output  logic                   <8>,
 ) {
     // imports
+    import $std::selector_pkg::*;
+
     import alu_pkg::*;
     import machine_data_pkg::*;
     import gpr_destination_selector_pkg::*;
@@ -23,77 +25,43 @@ module datapath #(
     const CONSTANT_ZERO_16: logic<16> = 16'h0;
 
     // registers and wires
-    var gpr  : micro1_machine_word_t     [8];
-    var pc   : micro1_machine_word_t        ;
-    var fsr  : logic                <4>     ;
-    var mar  : micro1_machine_word_t        ;
-    var op   : logic                <4>     ;
-    var ra   : logic                <2>     ;
-    var rb   : logic                <2>     ;
-    var nd   : logic                <8>     ;
-    var rap  : logic                <2>     ;
-    var rbp  : logic                <2>     ;
-    var rbm  : logic                <2>     ;
-    var lbus : logic                <16>    ;
-    var rbus : logic                <16>    ;
-    var sbus : logic                <16>    ;
-    var inbus: micro1_machine_word_t        ;
+    var gpr        : micro1_machine_word_t         [8];
+    var pc         : micro1_machine_word_t            ;
+    var fsr        : logic                <4>         ;
+    var mar        : micro1_machine_word_t            ;
+    var op         : logic                <4>         ;
+    var ra         : logic                <2>         ;
+    var rb         : logic                <2>         ;
+    var nd         : logic                <8>         ;
+    var rap        : logic                <2>         ;
+    var rbp        : logic                <2>         ;
+    var rbm        : logic                <2>         ;
+    var lbus       : logic                <16>        ;
+    var rbus       : logic                <16>        ;
+    var sbus       : logic                <16>        ;
+    var inbus      : micro1_machine_word_t            ;
+    var lbus_source: logic                <16, 16>    ;
+    var rbus_source: logic                <16, 16>    ;
 
     // submodules
-    inst mux_for_lbus: mux #(
-        WIDTH : 16,
-        NUMBER: 16,
+    inst mux_for_lbus: $std::mux #(
+        WIDTH  : 16                   ,
+        ENTRIES: 16                   ,
+        KIND   : selector_kind::BINARY,
     ) (
-        din: {
-            gpr[0],
-            gpr[1],
-            gpr[2],
-            gpr[3],
-            gpr[4],
-            gpr[5],
-            gpr[6],
-            gpr[7],
-            gpr[rb],
-            gpr[rbp],
-            pc,
-            inbus,
-            mm_din,
-            c_if.ir,
-            {
-                CONSTANT_ZERO_16[11:0], fsr
-            },
-            CONSTANT_ZERO_16
-        },
-        selector: c_if.lbus_source_selector,
-        dout    : lbus                     ,
+        i_data  : lbus_source              ,
+        i_select: c_if.lbus_source_selector,
+        o_data  : lbus                     ,
     );
 
-    inst mux_for_rbus: mux #(
-        WIDTH : 16,
-        NUMBER: 16,
+    inst mux_for_rbus: $std::mux #(
+        WIDTH  : 16                   ,
+        ENTRIES: 16                   ,
+        KIND   : selector_kind::BINARY,
     ) (
-        din: {
-            gpr[0],
-            gpr[1],
-            gpr[2],
-            gpr[3],
-            gpr[4],
-            gpr[5],
-            gpr[6],
-            gpr[7],
-            gpr[ra],
-            gpr[rap],
-            {
-                7'h0, c_if.literal[8:0]
-            },
-            c_if.literal,
-            CONSTANT_ZERO_16,
-            CONSTANT_ZERO_16,
-            CONSTANT_ZERO_16,
-            CONSTANT_ZERO_16
-        },
-        selector: c_if.rbus_source_selector,
-        dout    : rbus                     ,
+        i_data  : rbus_source              ,
+        i_select: c_if.rbus_source_selector,
+        o_data  : rbus                     ,
     );
 
     inst alu0: alu (
@@ -196,4 +164,30 @@ module datapath #(
     assign rbm = c_if.ir[9:8] - 2'b1;
 
     assign inbus = if c_if.inbus_valid ? {CONSTANT_ZERO_16[7:0], if_dout} : CONSTANT_ZERO_16;
+
+    always_comb {
+        for i: u32 in 0..=7 {
+            lbus_source[i] = gpr[i];
+        }
+        lbus_source[8]  = gpr[rb];
+        lbus_source[9]  = gpr[rbp];
+        lbus_source[10] = pc;
+        lbus_source[11] = inbus;
+        lbus_source[12] = mm_din;
+        lbus_source[13] = c_if.ir;
+        lbus_source[14] = {CONSTANT_ZERO_16[11:0], fsr};
+        lbus_source[15] = CONSTANT_ZERO_16;
+    }
+    always_comb {
+        for i: u32 in 0..=7 {
+            rbus_source[i] = gpr[i];
+        }
+        rbus_source[8]  = gpr[ra];
+        rbus_source[9]  = gpr[rap];
+        rbus_source[10] = {CONSTANT_ZERO_16[15:9], c_if.literal[8:0]};
+        rbus_source[11] = c_if.literal;
+        for i: u32 in 12..=15 {
+            rbus_source[i] = CONSTANT_ZERO_16;
+        }
+    }
 }
