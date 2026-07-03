@@ -343,7 +343,7 @@ module controler #(
 
     always_ff {
         if_reset {
-            for i: u32 in 0..8 {
+            for i in 0..8 {
                 cmar_stack[i] = CONSTANT_ZERO_40[11:0];
             }
         } else {

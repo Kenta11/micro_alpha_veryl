@@ -89,7 +89,7 @@ module datapath #(
 
     always_ff {
         if_reset {
-            for i: u32 in 0..8 {
+            for i in 0..8 {
                 gpr[i] = CONSTANT_ZERO_16;
             }
         } else {
@@ -160,7 +160,7 @@ module datapath #(
     assign inbus = if c_if.inbus_valid ? {CONSTANT_ZERO_16[7:0], if_dout} : CONSTANT_ZERO_16;
 
     always_comb {
-        for i: u32 in 0..=7 {
+        for i in 0..=7 {
             lbus_source[i] = gpr[i];
         }
         lbus_source[8]  = gpr[rb];
@@ -173,14 +173,14 @@ module datapath #(
         lbus_source[15] = CONSTANT_ZERO_16;
     }
     always_comb {
-        for i: u32 in 0..=7 {
+        for i in 0..=7 {
             rbus_source[i] = gpr[i];
         }
         rbus_source[8]  = gpr[ra];
         rbus_source[9]  = gpr[rap];
         rbus_source[10] = {CONSTANT_ZERO_16[15:9], c_if.literal[8:0]};
         rbus_source[11] = c_if.literal;
-        for i: u32 in 12..=15 {
+        for i in 12..=15 {
             rbus_source[i] = CONSTANT_ZERO_16;
         }
     }
