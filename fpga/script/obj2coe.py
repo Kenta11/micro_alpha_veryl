@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 
 
@@ -47,18 +48,15 @@ def main(memory_size, input_file, output_file):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4:
-        print("Usage:", sys.argv[0], "<board>", "<input>", "<output>")
-        print("<board>:=(arty-a7-100|basys-3)")
+    if len(sys.argv) < 3:
+        print("Usage:", sys.argv[0], "<input>", "<output>")
         exit(1)
 
-    memory_size_list = {
-        "arty-a7-100": [65536, 4096],
-        "basys-3": [1024, 512]
-    }
-
-    memory_size = memory_size_list[sys.argv[1]]
-    input_file = sys.argv[2]
-    output_file = sys.argv[3]
+    memory_size = (\
+        int(os.environ['MAIN_MEMORY_SIZE']), \
+        int(os.environ['CONTROL_MEMORY_SIZE']) \
+    )
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
 
     main(memory_size, input_file, output_file)

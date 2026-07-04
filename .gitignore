@@ -1,12 +1,14 @@
-# Build output
 .build/
 /target
 /dependencies
 *.f
-*.jou
-*.log
-vivado/
 
-# Verilator
-obj_dir/
-vunit_out/
+fpga/*.jou
+fpga/*.log
+fpga/vivado/
+fpga/MICROONE
+fpga/MICROONE.o
+fpga/machine_program
+fpga/machine_program.b
+
+sim/modelsim/vunit_out/
