@@ -1,0 +1,347 @@
+#[test(test_shifter_shift_left_logically_without_carry)]
+module test_shifter_shift_left_logically_without_carry {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::LEFT_LOGICALLY;
+        r#in      = 16'hA5A5;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(out == 16'h4B4A);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_shift_left_logically_with_carry)]
+module test_shifter_shift_left_logically_with_carry {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::LEFT_LOGICALLY;
+        r#in      = 16'hA5A5;
+        cin       = 1'b1;
+
+        u_clock.next(1);
+
+        $assert(out == 16'h4B4B);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_shift_right_logically_without_carry)]
+module test_shifter_shift_right_logically_without_carry {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::RIGHT_LOGICALLY;
+        r#in      = 16'hA5A5;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(out == 16'h52D2);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_shift_right_logically_with_carry)]
+module test_shifter_shift_right_logically_with_carry {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::RIGHT_LOGICALLY;
+        r#in      = 16'hA5A5;
+        cin       = 1'b1;
+
+        u_clock.next(1);
+
+        $assert(out == 16'hD2D2);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_shift_left_arithmetically_without_carry)]
+module test_shifter_shift_left_arithmetically_without_carry {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::LEFT_ARITHMETICALLY;
+        r#in      = 16'hFFFF;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(out == 16'hFFFE);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_shift_left_arithmetically_with_carry)]
+module test_shifter_shift_left_arithmetically_with_carry {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::LEFT_ARITHMETICALLY;
+        r#in      = 16'hFFFF;
+        cin       = 1'b1;
+
+        u_clock.next(1);
+
+        $assert(out == 16'hFFFF);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_shift_right_arithmetically_without_carry)]
+module test_shifter_shift_right_arithmetically_without_carry {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::RIGHT_ARITHMETICALLY;
+        r#in      = 16'hFFFF;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(out == 16'hFFFF);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_shift_right_arithmetically_with_carry)]
+module test_shifter_shift_right_arithmetically_with_carry {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::RIGHT_ARITHMETICALLY;
+        r#in      = 16'hFFFF;
+        cin       = 1'b1;
+
+        u_clock.next(1);
+
+        $assert(out == 16'hFFFF);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_extension_with_unsigned)]
+module test_shifter_extension_with_unsigned {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::EXTENSION;
+        r#in      = 16'h007F;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(out == 16'h007F);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_extension_with_signed)]
+module test_shifter_extension_with_signed {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::EXTENSION;
+        r#in      = 16'h00FF;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(out == 16'hFFFF);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_swap)]
+module test_shifter_swap {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::SWAP;
+        r#in      = 16'h0123;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(out == 16'h2301);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
+
+#[test(test_shifter_nop)]
+module test_shifter_nop {
+    import machine_data_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: shifter_operation_t  ;
+    var r#in     : micro1_machine_word_t;
+    var cin      : logic                ;
+    var out      : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: shifter ( operation, r#in, cin, out, cout );
+
+    initial {
+        operation = shifter_operation_t::NOP;
+        r#in      = 16'h0123;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(out == 16'h0123);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}

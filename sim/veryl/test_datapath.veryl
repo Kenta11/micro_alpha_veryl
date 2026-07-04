@@ -1,0 +1,2171 @@
+#[test(test_datapath_mar)]
+module test_datapath_mar {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR0;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R0;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.set_mar                  = 1'h1;
+
+        u_clock.next(1);
+
+        c_if.set_mar = 1'h0;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'hBEEF);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_ir)]
+module test_datapath_ir {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR0;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R0;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+
+        u_clock.next(1);
+
+        c_if.ir_source_selector = ir_source_selector_t::SET_IR;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'hBEEF);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_flag_zer)]
+module test_datapath_flag_zer {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.flags   = 4'b1000;
+        c_if.set_fsr = 1'h1;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector = lbus_source_selector_t::FSR;
+        c_if.set_fsr              = 1'h0;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'h8);
+        $assert(c_if.sbus_msb == 1'b0);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h8);
+        $assert(of_din == 8'h08);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_flag_neg)]
+module test_datapath_flag_neg {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.flags   = 4'b0100;
+        c_if.set_fsr = 1'h1;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector = lbus_source_selector_t::FSR;
+        c_if.set_fsr              = 1'h0;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'h4);
+        $assert(c_if.sbus_msb == 1'b0);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h4);
+        $assert(of_din == 8'h04);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_flag_cry)]
+module test_datapath_flag_cry {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.flags   = 4'b0010;
+        c_if.set_fsr = 1'h1;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector = lbus_source_selector_t::FSR;
+        c_if.set_fsr              = 1'h0;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'h2);
+        $assert(c_if.sbus_msb == 1'b0);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h2);
+        $assert(of_din == 8'h02);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_flag_ov)]
+module test_datapath_flag_ov {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.flags   = 4'b0001;
+        c_if.set_fsr = 1'h1;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector = lbus_source_selector_t::FSR;
+        c_if.set_fsr              = 1'h0;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'h1);
+        $assert(c_if.sbus_msb == 1'b0);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h1);
+        $assert(of_din == 8'h01);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_gpr0)]
+module test_datapath_gpr0 {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR0;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R0;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        // $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_gpr1)]
+module test_datapath_gpr1 {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR1;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R1;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_gpr2)]
+module test_datapath_gpr2 {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR2;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R2;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_gpr3)]
+module test_datapath_gpr3 {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR3;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R3;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_gpr4)]
+module test_datapath_gpr4 {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR4;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R4;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_gpr5)]
+module test_datapath_gpr5 {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR5;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R5;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_gpr6)]
+module test_datapath_gpr6 {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR6;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R6;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'h1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_gpr7)]
+module test_datapath_gpr7 {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR7;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.lbus_source_selector     = lbus_source_selector_t::R7;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_ra)]
+module test_datapath_ra {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR0;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::RA;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0000);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b1);
+        $assert(c_if.rbus_lower == 8'hEF);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h0);
+        $assert(of_din == 8'h00);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_rap)]
+module test_datapath_rap {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR1;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::RAP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0000);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b1);
+        $assert(c_if.rbus_lower == 8'hEF);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h0);
+        $assert(of_din == 8'h00);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_rb)]
+module test_datapath_rb {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR2;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR4;
+        c_if.literal                  = 16'h0200;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector     = lbus_source_selector_t::R4;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::SET_IR;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector     = lbus_source_selector_t::RB;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0200);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_rbp)]
+module test_datapath_rbp {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR3;
+        c_if.literal                  = 16'hBEEF;
+
+        u_clock.next(1);
+
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR4;
+        c_if.literal                  = 16'h0200;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector     = lbus_source_selector_t::R4;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::SET_IR;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector     = lbus_source_selector_t::RBP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0200);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 8'b1);
+        $assert(c_if.rbus_msb == 8'b0);
+        $assert(c_if.rbus_lower == 8'h0);
+        $assert(c_if.abus == 16'hBEEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'hBEEF);
+        $assert(of_din == 8'hEF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_io)]
+module test_datapath_io {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector = lbus_source_selector_t::IO;
+        c_if.inbus_valid          = 1'b1;
+        if_dout                   = 8'hFF;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0000);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h00);
+        $assert(c_if.abus == 16'h00FF);
+        $assert(c_if.sbus_msb == 1'b0);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h00FF);
+        $assert(of_din == 8'hFF);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_add)]
+module test_datapath_add {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR0;
+        c_if.literal                  = 16'h79E0;
+
+        u_clock.next(1);
+
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR1;
+        c_if.literal                  = 16'hd4d5;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector     = lbus_source_selector_t::R0;
+        c_if.rbus_source_selector     = rbus_source_selector_t::R1;
+        c_if.alu_operation            = alu_operation_t::ADD;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR2;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h1);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b1);
+        $assert(c_if.rbus_lower == 8'hd5);
+        $assert(c_if.abus == 16'h4eb5);
+        $assert(c_if.sbus_msb == 1'b0);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h79E0);
+        $assert(of_din == 8'hE0);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_sub)]
+module test_datapath_sub {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR0;
+        c_if.literal                  = 16'h54E8;
+
+        u_clock.next(1);
+
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR1;
+        c_if.literal                  = 16'h33BE;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector     = lbus_source_selector_t::R0;
+        c_if.rbus_source_selector     = rbus_source_selector_t::R1;
+        c_if.alu_operation            = alu_operation_t::SUB;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR2;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'hBE);
+        $assert(c_if.abus == 16'h212A);
+        $assert(c_if.sbus_msb == 1'b0);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h54E8);
+        $assert(of_din == 8'hE8);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_and)]
+module test_datapath_and {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR0;
+        c_if.literal                  = 16'h8986;
+
+        u_clock.next(1);
+
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR1;
+        c_if.literal                  = 16'hF4F6;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector     = lbus_source_selector_t::R0;
+        c_if.rbus_source_selector     = rbus_source_selector_t::R1;
+        c_if.alu_operation            = alu_operation_t::AND;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR2;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b1);
+        $assert(c_if.rbus_msb == 1'b1);
+        $assert(c_if.rbus_lower == 8'hF6);
+        $assert(c_if.abus == 16'h8086);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h8986);
+        $assert(of_din == 8'h86);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_or)]
+module test_datapath_or {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR0;
+        c_if.literal                  = 16'h1F87;
+
+        u_clock.next(1);
+
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR1;
+        c_if.literal                  = 16'hB9EB;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector     = lbus_source_selector_t::R0;
+        c_if.rbus_source_selector     = rbus_source_selector_t::R1;
+        c_if.alu_operation            = alu_operation_t::OR;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR2;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b1);
+        $assert(c_if.rbus_lower == 8'hEB);
+        $assert(c_if.abus == 16'hBFEF);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h1F87);
+        $assert(of_din == 8'h87);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_xor)]
+module test_datapath_xor {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector     = rbus_source_selector_t::LLT;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR0;
+        c_if.literal                  = 16'h1166;
+
+        u_clock.next(1);
+
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR1;
+        c_if.literal                  = 16'h8482;
+
+        u_clock.next(1);
+
+        c_if.lbus_source_selector     = lbus_source_selector_t::R0;
+        c_if.rbus_source_selector     = rbus_source_selector_t::R1;
+        c_if.alu_operation            = alu_operation_t::XOR;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::GPR2;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 16'h0);
+        $assert(c_if.shifter_cout == 16'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b1);
+        $assert(c_if.rbus_lower == 8'h82);
+        $assert(c_if.abus == 16'h95E4);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h1166);
+        $assert(of_din == 8'h66);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_sll)]
+module test_datapath_sll {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector = rbus_source_selector_t::LLT;
+        c_if.shifter_operation    = shifter_operation_t::LEFT_LOGICALLY;
+        c_if.literal              = 16'hC7B0;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 1'h0);
+        $assert(c_if.shifter_cout == 1'h1);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b1);
+        $assert(c_if.rbus_lower == 8'hB0);
+        $assert(c_if.abus == 16'hC7B0);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h0);
+        $assert(of_din == 8'h00);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_srl)]
+module test_datapath_srl {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector = rbus_source_selector_t::LLT;
+        c_if.shifter_operation    = shifter_operation_t::RIGHT_LOGICALLY;
+        c_if.literal              = 16'hA517;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 1'h0);
+        $assert(c_if.shifter_cout == 1'h1);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b1);
+        $assert(c_if.rbus_lower == 8'h17);
+        $assert(c_if.abus == 16'hA517);
+        $assert(c_if.sbus_msb == 1'b0);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h0);
+        $assert(of_din == 8'h00);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_sla)]
+module test_datapath_sla {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector = rbus_source_selector_t::LLT;
+        c_if.shifter_operation    = shifter_operation_t::LEFT_ARITHMETICALLY;
+        c_if.literal              = 16'hAE61;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 1'h0);
+        $assert(c_if.shifter_cout == 1'h1);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b1);
+        $assert(c_if.rbus_lower == 8'h61);
+        $assert(c_if.abus == 16'hAE61);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h0);
+        $assert(of_din == 8'h00);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_sra)]
+module test_datapath_sra {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector = rbus_source_selector_t::LLT;
+        c_if.shifter_operation    = shifter_operation_t::RIGHT_ARITHMETICALLY;
+        c_if.literal              = 16'h5393;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 1'h0);
+        $assert(c_if.shifter_cout == 1'h1);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'h93);
+        $assert(c_if.abus == 16'h5393);
+        $assert(c_if.sbus_msb == 1'b0);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h0);
+        $assert(of_din == 8'h00);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_snx)]
+module test_datapath_snx {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector = rbus_source_selector_t::LLT;
+        c_if.shifter_operation    = shifter_operation_t::EXTENSION;
+        c_if.literal              = 16'h32D5;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 1'h0);
+        $assert(c_if.shifter_cout == 1'h1);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'hD5);
+        $assert(c_if.abus == 16'h32D5);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h0);
+        $assert(of_din == 8'h00);
+
+        $finish();
+    }
+}
+
+#[test(test_datapath_swap)]
+module test_datapath_swap {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+    import gpr_destination_selector_pkg::*;
+    import ir_source_selector_pkg::*;
+    import lbus_source_selector_pkg::*;
+    import rbus_source_selector_pkg::*;
+    import shifter_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+    inst u_reset: $tb::reset_gen ( clk: u_clock );
+
+    inst c_if: control_if;
+
+    var mm_addr: micro1_machine_address_t   ;
+    var mm_din : micro1_machine_word_t      ;
+    var mm_dout: micro1_machine_word_t      ;
+    var if_dout: logic                   <8>;
+    var of_din : logic                   <8>;
+
+    inst dut: datapath ( clk: u_clock, rst: u_reset, c_if: c_if, mm_addr, mm_din, mm_dout, if_dout, of_din );
+
+    initial {
+        c_if.lbus_source_selector     = lbus_source_selector_t::NLB;
+        c_if.rbus_source_selector     = rbus_source_selector_t::NRB;
+        c_if.alu_operation            = alu_operation_t::NOP;
+        c_if.shifter_operation        = shifter_operation_t::NOP;
+        c_if.gpr_destination_selector = gpr_destination_selector_t::NONE;
+        c_if.ir_source_selector       = ir_source_selector_t::NO_OPERATION;
+        c_if.set_mar                  = 1'h0;
+        c_if.set_fsr                  = 1'h0;
+        c_if.set_pc                   = 1'h0;
+        c_if.literal                  = 16'h0;
+        c_if.flags                    = 4'h0;
+        c_if.cin                      = 1'h0;
+        c_if.inbus_valid              = 1'h0;
+        mm_din                        = 16'h0;
+        if_dout                       = 8'h0;
+
+        u_reset.assert(1);
+
+        u_clock.next(1);
+
+        c_if.rbus_source_selector = rbus_source_selector_t::LLT;
+        c_if.shifter_operation    = shifter_operation_t::SWAP;
+        c_if.literal              = 16'h1BC2;
+
+        u_clock.next(1);
+
+        $assert(c_if.ir == 16'h0);
+        $assert(c_if.alu_cout == 1'h0);
+        $assert(c_if.shifter_cout == 1'h0);
+        $assert(c_if.lbus_msb == 1'b0);
+        $assert(c_if.rbus_msb == 1'b0);
+        $assert(c_if.rbus_lower == 8'hC2);
+        $assert(c_if.abus == 16'h1BC2);
+        $assert(c_if.sbus_msb == 1'b1);
+        $assert(mm_addr == 16'h0140);
+        $assert(mm_dout == 16'h0);
+        $assert(of_din == 8'h00);
+
+        $finish();
+    }
+}

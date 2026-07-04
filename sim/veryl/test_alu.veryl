@@ -1,0 +1,371 @@
+#[test(test_alu_add_without_carry)]
+module test_alu_add_without_carry {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::ADD;
+        left      = 16'd20;
+        right     = 16'd32;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(result == 16'd52);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_add_with_carry)]
+module test_alu_add_with_carry {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::ADD;
+        left      = 16'd20;
+        right     = 16'd32;
+        cin       = 1'b1;
+
+        u_clock.next(1);
+
+        $assert(result == 16'd53);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_add_without_carry_then_overflow)]
+module test_alu_add_without_carry_then_overflow {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::ADD;
+        left      = 16'hFFF3;
+        right     = 16'h000E;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(result == 16'd1);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_add_with_carry_then_overflow)]
+module test_alu_add_with_carry_then_overflow {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::ADD;
+        left      = 16'hFFF3;
+        right     = 16'h000E;
+        cin       = 1'b1;
+
+        u_clock.next(1);
+
+        $assert(result == 16'd2);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_sub_without_carry)]
+module test_alu_sub_without_carry {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::SUB;
+        left      = 16'd58;
+        right     = 16'd13;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(result == 16'd45);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_sub_with_carry)]
+module test_alu_sub_with_carry {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::SUB;
+        left      = 16'd58;
+        right     = 16'd13;
+        cin       = 1'b1;
+
+        u_clock.next(1);
+
+        $assert(result == 16'd44);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_sub_without_carry_then_underflow)]
+module test_alu_sub_without_carry_then_underflow {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::SUB;
+        left      = 16'd2;
+        right     = 16'd5;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(result == 16'hFFFD);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_sub_with_carry_then_underflow)]
+module test_alu_sub_with_carry_then_underflow {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::SUB;
+        left      = 16'd3;
+        right     = 16'd7;
+        cin       = 1'b1;
+
+        u_clock.next(1);
+
+        $assert(result == 16'hFFFB);
+        $assert(cout == 1'b1);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_and)]
+module test_alu_and {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::AND;
+        left      = 16'hFAFA;
+        right     = 16'h5F5F;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(result == 16'h5A5A);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_or)]
+module test_alu_or {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::OR;
+        left      = 16'h5A5A;
+        right     = 16'hA5A5;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(result == 16'hFFFF);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_xor)]
+module test_alu_xor {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::XOR;
+        left      = 16'hFFFF;
+        right     = 16'h5A5A;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(result == 16'hA5A5);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
+
+#[test(test_alu_nop)]
+module test_alu_nop {
+    import alu_pkg::*;
+    import machine_data_pkg::*;
+
+    inst u_clock: $tb::clock_gen;
+
+    var operation: alu_operation_t      ;
+    var left     : micro1_machine_word_t;
+    var right    : micro1_machine_word_t;
+    var cin      : logic                ;
+    var result   : micro1_machine_word_t;
+    var cout     : logic                ;
+
+    inst dut: alu ( operation, left, right, cin, result, cout );
+
+    initial {
+        operation = alu_operation_t::NOP;
+        left      = 16'hA5A5;
+        right     = 16'h5A5A;
+        cin       = 1'b0;
+
+        u_clock.next(1);
+
+        $assert(result == 16'hFFFF);
+        $assert(cout == 1'b0);
+
+        $finish();
+    }
+}
